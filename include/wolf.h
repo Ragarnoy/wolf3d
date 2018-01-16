@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 23:26:50 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/16 17:56:46 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/16 18:30:07 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,22 +31,17 @@ typedef struct			s_pnt
 	unsigned int		y;
 }						t_pnt;
 
-typedef struct			s_img
-{
-	int					*data;
-	int					bpp;
-	int					l_size;
-}						t_img;
-
 typedef struct			s_env
 {
+	int					*data;
 	SDL_Window			*win_p;
 	SDL_Event			event;
-	t_img				img;
+	SDL_Surface			*surf;
 }						t_env;
 
 int						exit_prog(int error);
 t_env					*setup_env(void);
 t_env					*get_env(void);
+void					putpixel(t_pnt, float hue);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/16 16:25:06 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/16 17:56:39 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/16 18:30:22 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,14 @@
 
 static void			setup_sdl(t_env *env)
 {
-	SDL_Surface	*surface;
 	SDL_Init(SDL_INIT_VIDEO);
 	env->win_p = SDL_CreateWindow
 		("WOLF3D",
 		SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
 		W_WDTH, W_HGHT,
 		SDL_WINDOW_ALLOW_HIGHDPI);
-	surface = SDL_GetWindowSurface(env->win_p);
-	env->img.data =(int*)surface->pixels;
-	env->img.l_size = surface->pitch;
-	env->img.bpp = surface->format->BitsPerPixel;
+	env->surf = SDL_GetWindowSurface(env->win_p);
+	env->data =(int*)env->surf->pixels;
 }
 
 t_env				*get_env(void)
