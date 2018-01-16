@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 23:26:50 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/16 18:30:07 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/16 20:53:49 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,18 @@
 # define W_HGHT 800
 
 # include "../libft/libft.h"
-# include <SDL.h>
+# include "sdl/SDL.h"
 # include <stdio.h>
 # include <errno.h>
 # include <fcntl.h>
 # include <pthread.h>
+
+typedef struct			s_map
+{
+	unsigned int		wdth;
+	unsigned int		hght;
+	int					**map;
+}						t_map;
 
 typedef struct			s_pnt
 {
