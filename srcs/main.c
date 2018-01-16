@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 23:57:24 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/16 17:52:32 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/16 18:00:06 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,3 +35,9 @@ int	main(void)
 	SDL_Quit();
 	return (0);
 }
+
+/*
+ * ligne 11 pour maj la fenetre
+ * Sinon pour l'instant la fenetre va etre vide, normal
+ * voila
+*/
