@@ -6,74 +6,81 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/16 19:06:22 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/16 20:53:50 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/17 21:29:58 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/wolf.h"
 
-static int		checkvalidity(char **s, int hght, int wdth)
+static void	clean_exit(int error, char **s)
 {
-	if (wdth < 0 || hght < 0)
-		return (0);
-	while (hght-- != 0)
-	{
-		while (wdth-- != 0)
-		{
-			if (
-		}
+	free(s);
+//	while (s[++i])
+	exit_prog(error);
+}
 
+static int	checkvalidity(char *s, int wdth)
+{
+	short	i;
+
+	i = -1;
+	while (s[++i])
+	{
+		if (i > wdth + 1)
+			return (0);
+		if (s[i] != '#' && s[i] != ' ' && s[i] != 'x')
+			return (0);
+	}
 	return (1);
 }
 
-static int	**fillmap(char **s, int c_size, int l_size)
+static int	fillmap(t_map *map, int fd)
 {
-	int		l;
-	int		c;
-	char	**tmp;
-	t_point	**ret;
+	char			*tmp;
+	int				error;
+	unsigned int	i;
 
-	c = c_size;
-	if (!(ret = (t_point**)malloc(sizeof(t_point*) * l_size)))
-		usage(2, NULL);
-	l = -1;
-	while (++l < l_size)
+	i = 0;
+	while (((error = (get_next_line(fd, &tmp))) > 0) && ++i)
 	{
-		c = -1;
-		if (!(ret[l] = ((t_point*)malloc(sizeof(t_point) * c_size))))
-			usage(2, NULL);
-		tmp = ft_strsplit(s[l], ' ');
-		while (++c < c_size && tmp[c])
-		{
-			(ret[l][c]).alt = ft_atoi(tmp[c]);
-			ft_strdel(tmp + c);
-		}
+		if (!checkvalidity(tmp, map->wdth))
+			return (0);
+		map->map[i][0] = '#';
+		ft_strcpy(map->map[i] + 1, tmp);
+		map->map[i][map->wdth + 1] = '#';
 		free(tmp);
+		if (i > map->hght)
+			return (0);
 	}
-	return (ret);
+	ft_strdel(&tmp);
+	if (i != map->hght)
+		return (0);
+	return (1);
 }
 
-t_map			**parser(int fd, int *wdth, int *hght)
+t_map		*parser(int fd)
 {
-	char	**s;
-	int		error;
-	t_point	**ret;
+	t_map			*map;
+	char			*str;
+	unsigned int	i;
 
-	*wdth = -1;
-	*hght = -1;
-	if (!(s = (char**)ft_memalloc(sizeof(char *) * 25)))
+	map = (t_map*)malloc(sizeof(t_map));
+	if (!(get_next_line(fd, &str) && (map->wdth = ft_atoi(str))))
+		clean_exit(1, &str);
+	free(str);
+	if (!(get_next_line(fd, &str) && (map->hght = ft_atoi(str))))
+		clean_exit(1, &str);
+	ft_strdel(&str);
+	if (map->wdth == 0 || map->wdth > 50 || map->hght == 0 || map->wdth > 50)
 		exit_prog(2);
-	while ((((error = (get_next_line(fd, &(s[*++hght])))) && l < MAX_S)))
-	{
-		if (error == -1)
-			exit_prog(2);
-		if (c == -1)
-			c = ft_countwords(s[l], ' ');
-		else if ((int)ft_countwords(s[l], ' ') != c || c < 1)
-			exit_prog(3);
-	}
-	if (!(setmaxsize(s, wdth, hght)))
-		exit_prog(3);
-	ret = fillmap(s, c, l);
-	return (ret);
+	if (!(map->map = ((char**)malloc(sizeof(char*) * (map->hght + 2)))))
+		exit_prog(1);
+	i = -1;
+	while (++i < map->hght + 2)
+		map->map[i] = ft_strnew(map->wdth + 2);
+	ft_memset(map->map[0], '#', map->wdth + 2);
+	ft_memset(map->map[map->hght + 1], '#', map->wdth + 2);
+	if (!fillmap(map, fd))
+		clean_exit(3, map->map);
+	return (map);
 }
