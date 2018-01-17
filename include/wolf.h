@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 23:26:50 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/16 18:30:07 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/16 20:43:15 by tle-gac-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,10 @@ typedef struct			s_env
 	SDL_Window			*win_p;
 	SDL_Event			event;
 	SDL_Surface			*surf;
+	int					**map;
+	int					map_size;
+	t_pnt				player_pos;
+	int					tile_size;
 }						t_env;
 
 int						exit_prog(int error);
