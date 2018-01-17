@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 23:57:24 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/16 18:00:06 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/17 21:34:25 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,14 @@ int	exit_prog(int error)
 {
 	if (!error)
 		ft_putendl("Usage : wolf3d [map]");
+	else if (error == 1)
+		perror("wolf3d");
+	else if (error == 2)
+		ft_putendl("wolf3d : invalid map.");
+	else if (error == 3)
+		ft_putendl("wolf3d : parsing error");
+	else if (error == 4)
+		ft_putendl("wolf3d : invalid map (liar)");
 	exit(-1);
 }
 
