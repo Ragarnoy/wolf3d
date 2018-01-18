@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/16 16:25:06 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/17 23:04:08 by tle-gac-         ###   ########.fr       */
+/*   Updated: 2018/01/18 17:41:12 by tle-gac-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ t_env				*setup_env(void)
 	env->map_size.x = 5;
 	env->map_size.y = 5;
 	env->dir_vec.x = 0;
-	env->dir_vec.y = -1;
-	env->cam_vec.x = 0.66;
+	env->dir_vec.y = -10;
+	env->cam_vec.x = 6.6;
 	env->cam_vec.y = 0;
 	return (env);
 }

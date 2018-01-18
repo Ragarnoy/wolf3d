@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 23:57:24 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/17 23:01:58 by tle-gac-         ###   ########.fr       */
+/*   Updated: 2018/01/18 18:08:15 by tle-gac-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,28 +31,33 @@ void	test_tamere(t_env *env)
 		hit = 0;
 		cast.ray.x = env->dir_vec.x + env->cam_vec.x * ((i - W_WDTH / 2) / (W_WDTH / 2));
 		cast.ray.y = env->dir_vec.y + env->cam_vec.y * ((i - W_WDTH / 2) / (W_WDTH / 2));
+		//printf("Ray : %f %f\n", cast.ray.x, cast.ray.y);
 		cast.map_pos.x = env->ppos.x / env->tsize;
 		cast.map_pos.y = env->ppos.y / env->tsize;
-		cast.ntile.x = cast.ray.x < 0 ? (env->ppos.x % env->tsize) * fabs(1 / cast.ray.x) : (env->tsize - env->ppos.x % env->tsize) * fabs(1 / cast.ray.x);
-		cast.ntile.y = cast.ray.y < 0 ? (env->ppos.y % env->tsize) * fabs(1 / cast.ray.y) : (env->tsize - env->ppos.y % env->tsize) * fabs(1/ cast.ray.y);
+		//printf("Map pos : %d %d\n", cast.map_pos.x, cast.map_pos.y);
+		cast.ntile.x = cast.ray.x < 0 ? (env->ppos.x % env->tsize) * fabs(1 / cast.ray.x) : (env->tsize - env->ppos.x % env->tsize) * fabs(10 / cast.ray.x);
+		cast.ntile.y = cast.ray.y < 0 ? (env->ppos.y % env->tsize) * fabs(1 / cast.ray.y) : (env->tsize - env->ppos.y % env->tsize) * fabs(10 / cast.ray.y);
+		//printf("Next tile : %f %f\n", cast.ntile.x, cast.ntile.y);
 		cast.steps.x = cast.ray.x < 0 ? -1 : 1;
 		cast.steps.y = cast.ray.y < 0 ? -1 : 1;
+		//printf("Steps : %d %d\n", cast.steps.x, cast.steps.y);
 		cast.wall = 0;
 		//cast struct initialization DONE
 		while(!hit)
 		{
 			if (cast.ntile.x < cast.ntile.y)
 			{
-				cast.ntile.x += 1 / cast.ray.x;
+				cast.ntile.x += fabs(1 / cast.ray.x);
 				cast.map_pos.x += cast.steps.x;
 				cast.wall = 1;
 			}
 			else
 			{
-				cast.ntile.y += cast.ray.y;
+				cast.ntile.y += fabs(cast.ray.y);
 				cast.map_pos.y += cast.steps.y;
 				cast.wall = -1;
 			}
+			//printf("Ray at map [%d][%d]\n", cast.map_pos.x, cast.map_pos.y);
 			if (env->map[cast.map_pos.x][cast.map_pos.y] == 1)
 			{
 				hit = 1;
