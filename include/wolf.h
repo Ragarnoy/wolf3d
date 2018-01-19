@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 23:26:50 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/19 17:50:06 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/19 19:23:57 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ typedef struct			s_env
 }						t_env;
 
 int						exit_prog(int error);
-t_map					parser(int fd);
+t_map					*parser(int fd);
 t_env					*setup_env(void);
 t_env					*get_env(void);
 void					putpixel(int x, int y, float hue);
