@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 23:26:50 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/18 17:23:17 by tle-gac-         ###   ########.fr       */
+/*   Updated: 2018/01/19 22:27:11 by tle-gac-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,10 @@ typedef struct			s_raycast
 {
 	t_vec				ntile;
 	t_vec				ray;
-	t_pnt				steps;
+	t_pnt				step;
 	t_pnt				map_pos;
+	t_vec				dif;
+	float				dist;
 	short				wall;
 }						t_raycast;
 
@@ -56,7 +58,7 @@ typedef struct			s_env
 	SDL_Surface			*surf;
 	int					**map;
 	t_pnt				map_size;
-	t_pnt				ppos;
+	t_vec				ppos;
 	int					tsize;
 	t_vec				dir_vec;
 	t_vec				cam_vec;
