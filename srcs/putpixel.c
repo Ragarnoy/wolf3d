@@ -6,13 +6,13 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/16 18:07:37 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/19 17:39:16 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/19 17:50:18 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/wolf.h"
 
-void	putpixel(t_pnt pt, float hue)
+void	putpixel(int x, int y, float hue)
 {
 	t_hsl hsl;
 
@@ -24,7 +24,7 @@ void	putpixel(t_pnt pt, float hue)
 		hsl.l = 1;
 	else
 		hsl.l = 0.5;
-	get_env()->data[pt.y * W_WDTH + pt.x] = ft_hsl_to_rgb(hsl) & 0x00FFFFFF;
+	get_env()->data[y * W_WDTH + x] = ft_hsl_to_rgb(hsl) & 0x00FFFFFF;
 }
 
 void	putpixel_opt(t_pnt pt, float hue)
