@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/16 18:07:37 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/17 21:47:28 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/19 17:39:16 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,12 @@ void	putpixel(t_pnt pt, float hue)
 
 	hsl.h = hue;
 	hsl.s = 1.0;
-	hsl.l = 0.5;
+	if (hue == -1.0)
+		hsl.l = 0;
+	if (hue == -2.0)
+		hsl.l = 1;
+	else
+		hsl.l = 0.5;
 	get_env()->data[pt.y * W_WDTH + pt.x] = ft_hsl_to_rgb(hsl) & 0x00FFFFFF;
 }
 
