@@ -6,13 +6,13 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/16 16:25:06 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/18 17:41:12 by tle-gac-         ###   ########.fr       */
+/*   Updated: 2018/01/19 20:09:36 by tle-gac-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/wolf.h"
 
-/*static void			setup_sdl(t_env *env)
+static void			setup_sdl(t_env *env)
 {
 	SDL_Init(SDL_INIT_VIDEO);
 	env->win_p = SDL_CreateWindow
@@ -22,7 +22,7 @@
 		SDL_WINDOW_ALLOW_HIGHDPI);
 	env->surf = SDL_GetWindowSurface(env->win_p);
 	env->data =(int*)env->surf->pixels;
-}*/
+}
 
 t_env				*get_env(void)
 {
@@ -43,7 +43,7 @@ t_env				*setup_env(void)
 
 	i = -1;
 	env = get_env();
-//	setup_sdl(env);
+	setup_sdl(env);
 	env->map = malloc(sizeof(int*) * 5);
 	while( ++i < 5)
 	{

@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 23:57:24 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/18 18:08:15 by tle-gac-         ###   ########.fr       */
+/*   Updated: 2018/01/19 20:09:33 by tle-gac-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,37 @@ int	exit_prog(int error)
 	exit(-1);
 }
 
-void	test_tamere(t_env *env)
+void	height_calc(t_raycast *cast, int col)
+{
+	int		i;
+	t_pnt	pix;
+
+	i = -1;
+	pix.x = col;
+	while (++i < W_HGHT)
+	{
+		pix.y = i;
+		if (i < -(W_HGHT / cast->dist) / 2 + W_HGHT / 2)
+			putpixel(pix, 0);
+		else if (i < (W_HGHT / cast->dist) / 2 + W_HGHT / 2)
+			putpixel (pix, (cast->wall + (cast->wall == 1 ? abs(cast->steps.    x) + 1: abs(cast->steps.y) + 1)) * 50);
+		else
+			putpixel (pix, 0);
+	}
+}
+
+void	raycasting(t_env *env)
 {
 	t_raycast	cast;
 	int			i;
+	//int			j;
 	short		hit;
+	//t_pnt		pix;
 
 	i = -1;
 	while (++i < W_WDTH)
 	{
+		//pix.x = i;
 		hit = 0;
 		cast.ray.x = env->dir_vec.x + env->cam_vec.x * ((i - W_WDTH / 2) / (W_WDTH / 2));
 		cast.ray.y = env->dir_vec.y + env->cam_vec.y * ((i - W_WDTH / 2) / (W_WDTH / 2));
@@ -49,19 +71,30 @@ void	test_tamere(t_env *env)
 			{
 				cast.ntile.x += fabs(1 / cast.ray.x);
 				cast.map_pos.x += cast.steps.x;
-				cast.wall = 1;
+				cast.wall = 0;
+				cast.dist = (cast.map_pos.x - env->ppos.x + (1 - cast.steps.x) / 2) / cast.ray.x;
 			}
 			else
 			{
 				cast.ntile.y += fabs(cast.ray.y);
 				cast.map_pos.y += cast.steps.y;
-				cast.wall = -1;
+				cast.wall = 1;
+				cast.dist = (cast.map_pos.y - env->ppos.y + (1 - cast.steps.y) / 2) / cast.ray.y;
 			}
+			printf("Distance to wall : %f\n", cast.dist);
 			//printf("Ray at map [%d][%d]\n", cast.map_pos.x, cast.map_pos.y);
 			if (env->map[cast.map_pos.x][cast.map_pos.y] == 1)
 			{
+				//j = -1;
 				hit = 1;
 				printf("Hit at map[%d][%d]\n", cast.map_pos.x, cast.map_pos.y);
+				/*while (++j < W_HGHT)
+				{
+					pix.y = j;
+					putpixel(pix, (cast.wall + (cast.wall == 1 ? abs(cast.steps.x) + 1: abs(cast.steps.y) + 1)) * 50);
+				}*/
+				cast.dist = cast.wall == 0 ? (cast.map_pos.x - env->ppos.x + (1 - cast.steps.x) / 2) / cast.ray.x : (cast.map_pos.y - env->ppos.y + (1 - cast.steps.y) / 2) / cast.ray.y;
+				height_calc(&cast, i);
 			}
 		}
 	}
@@ -70,18 +103,18 @@ void	test_tamere(t_env *env)
 int	main(void)
 {
 	t_env		*env;
-	//int			running = 1;
-	//SDL_Event	event;
+	int			running = 1;
+	SDL_Event	event;
 
 	env = setup_env();
-	test_tamere(env);
-	/*SDL_UpdateWindowSurface(env->win_p);
+	raycasting(env);
+	SDL_UpdateWindowSurface(env->win_p);
 	while (running)
 		while(SDL_PollEvent(&event))
 			if((event.type == SDL_QUIT) || (event.type == SDL_KEYDOWN && event.key.keysym.scancode == SDL_SCANCODE_ESCAPE))
 				running = 0;
 	SDL_DestroyWindow(env->win_p);
-	SDL_Quit();*/
+	SDL_Quit();
 	return (0);
 }
 
