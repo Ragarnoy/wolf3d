@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 23:57:24 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/20 17:57:48 by tle-gac-         ###   ########.fr       */
+/*   Updated: 2018/01/20 18:36:19 by tle-gac-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,25 +25,20 @@ void	calc_height(t_raycast *cast, t_env *env, int col)
 	int		wall_foot;
 	int		perceived;
 	int		i;
-	t_pnt	pix;
-
-	pix.x = col;
-	printf("a\n");
-	perceived = sqrt(env->dir_vec.x * env->dir_vec.x + env->dir_vec.y * env->dir_vec.y) * 0.2 / cast->dist;
-	printf("b\n");
+	perceived = sqrt(env->dir_vec.x * env->dir_vec.x + env->dir_vec.y * env->dir_vec.y) * 800 / cast->dist/*(cast->dist * cos (atan((cast->ray.y - env->dir_vec.y) / env->dir_vec.x)))*/;
+	//printf("Perceived : %d\n", perceived);
 	wall_top = W_HGHT / 2 - perceived / 2;
 	wall_foot = W_HGHT / 2 + perceived / 2;
 	i = -1;
+	//printf("Top : %d Foot : %d\n", wall_top, wall_foot);
 	while (++i < W_HGHT)
 	{
-		pix.y = i;
-		printf("%d %d\n", pix.x, pix.y);
 		if (i < wall_top)
-			putpixel(pix, 0);
+			putpixel(col, i, -2);
 		else if (i <= wall_foot)
-			putpixel(pix, (cast->wall == 0 ? (cast->step.x + 2) : (cast->step.y + 3)) * 50);
+			putpixel(col, i, ((cast->wall == 0 ? (cast->step.x + 2) : (cast->step.y + 3)) + cast->wall) * 50);
 		else
-			putpixel(pix, 0);
+			putpixel(col, i, -1);
 	}
 }
 
@@ -58,8 +53,8 @@ void	test_tamere(t_env *env)
 	{
 		hit = 0;
 		cast.dist = 0;
-		cast.ray.x = env->dir_vec.x + (env->cam_vec.x * (i - W_WDTH) / (W_WDTH / 2));
-		cast.ray.y = env->dir_vec.y + (env->cam_vec.y * (i - W_WDTH) / (W_WDTH / 2));
+		cast.ray.x = env->dir_vec.x + (env->cam_vec.x * (i - W_WDTH / 2) / (W_WDTH / 2));
+		cast.ray.y = env->dir_vec.y + (env->cam_vec.y * (i - W_WDTH / 2) / (W_WDTH / 2));
 		cast.dif.x = 1 / fabs(cast.ray.x);
 		cast.dif.y = 1 / fabs(cast.ray.y);
 		cast.ntile.x = (cast.ray.x < 0 ? env->ppos.x - floor(env->ppos.x) : floor(env->ppos.x + 1) - env->ppos.x) * cast.dif.x;
@@ -97,18 +92,18 @@ void	test_tamere(t_env *env)
 int	main(void)
 {
 	t_env		*env;
-	//int			running = 1;
-	//SDL_Event	event;
+	int			running = 1;
+	SDL_Event	event;
 
 	env = setup_env();
 	test_tamere(env);
-	/*SDL_UpdateWindowSurface(env->win_p);
+	SDL_UpdateWindowSurface(env->win_p);
 	while (running)
 		while(SDL_PollEvent(&event))
 			if((event.type == SDL_QUIT) || (event.type == SDL_KEYDOWN && event.key.keysym.scancode == SDL_SCANCODE_ESCAPE))
 				running = 0;
 	SDL_DestroyWindow(env->win_p);
-	SDL_Quit();*/
+	SDL_Quit();
 	return (0);
 }
 

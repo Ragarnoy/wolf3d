@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 23:26:50 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/20 17:08:42 by tle-gac-         ###   ########.fr       */
+/*   Updated: 2018/01/20 18:05:30 by tle-gac-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,6 @@ typedef struct			s_env
 int						exit_prog(int error);
 t_env					*setup_env(void);
 t_env					*get_env(void);
-void					putpixel(t_pnt, float hue);
+void					putpixel(int x, int y, float hue);
 
 #endif
