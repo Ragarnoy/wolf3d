@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 23:57:24 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/20 21:32:45 by tle-gac-         ###   ########.fr       */
+/*   Updated: 2018/01/20 22:14:37 by tle-gac-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	test_tamere(t_env *env)
 		cast.step.y = cast.ray.y < 0 ? -1 : 1;
 		cast.map_pos.x = floor(env->ppos.x);
 		cast.map_pos.y = floor(env->ppos.y);
-		printf("Ray : %f %f\n", cast.ntile.x, cast.ntile.y);
+		//printf("Next : %f %f\n", cast.ntile.x, cast.ntile.y);
 		while(!hit)
 		{
 			if (cast.ntile.x < cast.ntile.y)
@@ -95,10 +95,11 @@ void	test_tamere(t_env *env)
 				cast.ntile.y += cast.dif.y;
 				cast.wall = 1;
 			}
+			printf("Distance : %f\n", cast.dist);
 			if (env->map[cast.map_pos.x][cast.map_pos.y] == 1)
 			{
 				hit = 1;
-				//printf("Wall hit [%d][%d]\n", cast.map_pos.x, cast.map_pos.y);
+				printf("Wall hit [%d][%d]\n", cast.map_pos.x, cast.map_pos.y);
 				calc_height(&cast, env, i);
 			}
 		}
