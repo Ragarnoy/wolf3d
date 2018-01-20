@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 23:57:24 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/19 22:34:10 by tle-gac-         ###   ########.fr       */
+/*   Updated: 2018/01/20 17:57:48 by tle-gac-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,34 @@ int	exit_prog(int error)
 	if (!error)
 		ft_putendl("Usage : wolf3d [map]");
 	exit(-1);
+}
+
+void	calc_height(t_raycast *cast, t_env *env, int col)
+{
+	int		wall_top;
+	int		wall_foot;
+	int		perceived;
+	int		i;
+	t_pnt	pix;
+
+	pix.x = col;
+	printf("a\n");
+	perceived = sqrt(env->dir_vec.x * env->dir_vec.x + env->dir_vec.y * env->dir_vec.y) * 0.2 / cast->dist;
+	printf("b\n");
+	wall_top = W_HGHT / 2 - perceived / 2;
+	wall_foot = W_HGHT / 2 + perceived / 2;
+	i = -1;
+	while (++i < W_HGHT)
+	{
+		pix.y = i;
+		printf("%d %d\n", pix.x, pix.y);
+		if (i < wall_top)
+			putpixel(pix, 0);
+		else if (i <= wall_foot)
+			putpixel(pix, (cast->wall == 0 ? (cast->step.x + 2) : (cast->step.y + 3)) * 50);
+		else
+			putpixel(pix, 0);
+	}
 }
 
 void	test_tamere(t_env *env)
@@ -60,6 +88,7 @@ void	test_tamere(t_env *env)
 			{
 				hit = 1;
 				printf("Wall hit [%d][%d]\n", cast.map_pos.x, cast.map_pos.y);
+				calc_height(&cast, env, i);
 			}
 		}
 	}
