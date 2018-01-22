@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 23:26:50 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/19 19:23:57 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/22 15:00:32 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # define WALL 35
 
 # include "../libft/libft.h"
-# include "sdl/SDL.h"
+# include <SDL.h>
 # include <stdio.h>
 # include <errno.h>
 # include <fcntl.h>
@@ -43,6 +43,7 @@ typedef struct			s_pnt
 typedef struct			s_env
 {
 	int					*data;
+	const Uint8			*state;
 	SDL_Window			*win_p;
 	SDL_Event			event;
 	SDL_Surface			*surf;
@@ -53,5 +54,6 @@ t_map					*parser(int fd);
 t_env					*setup_env(void);
 t_env					*get_env(void);
 void					putpixel(int x, int y, float hue);
+void					movements(t_env *env);
 
 #endif

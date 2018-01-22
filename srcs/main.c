@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 23:57:24 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/19 20:13:51 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/22 14:45:13 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,17 +37,19 @@ int	main(void)
 	SDL_UpdateWindowSurface(env->win_p);
 	while (running)
 		while(SDL_PollEvent(&event))
-			if((event.type == SDL_QUIT) ||
-					(event.type == SDL_KEYDOWN &&
-					 event.key.keysym.scancode == SDL_SCANCODE_ESCAPE))
+		{
+			movements(env);
+			if((event.type == SDL_QUIT) || (env->state[SDL_SCANCODE_ESCAPE]))
 				running = 0;
+			SDL_PumpEvents();
+		}
 	SDL_DestroyWindow(env->win_p);
 	SDL_Quit();
 	return (0);
 }
 
 /*
- * ligne 11 pour maj la fenetre
+ * ligne 15 pour maj la fenetre
  * Sinon pour l'instant la fenetre va etre vide, normal
  * voila
 */
