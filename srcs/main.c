@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 23:57:24 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/22 15:12:08 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/22 18:36:36 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int	main(void)
 
 	running = 1;
 	env = setup_env();
+	raycasting(env);
 	SDL_UpdateWindowSurface(env->win_p);
 	while (running)
 		while (SDL_PollEvent(&event))
@@ -50,7 +51,7 @@ int	main(void)
 }
 
 /*
- * ligne 15 pour maj la fenetre
+ * ligne 29 pour maj la fenetre
  * Sinon pour l'instant la fenetre va etre vide, normal
  * voila
 */

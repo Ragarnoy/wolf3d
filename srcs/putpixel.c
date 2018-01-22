@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/16 18:07:37 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/19 17:50:18 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/22 18:38:10 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	putpixel(int x, int y, float hue)
 	hsl.s = 1.0;
 	if (hue == -1.0)
 		hsl.l = 0;
-	if (hue == -2.0)
+	else if (hue == -2.0)
 		hsl.l = 1;
 	else
 		hsl.l = 0.5;

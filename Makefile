@@ -10,6 +10,8 @@ SRC_PATH = srcs
 SRC_NAME = main.c \
 		setup_env.c \
 		events.c \
+		putpixel.c \
+		raycasting.c \
 
 OBJ_NAME = $(SRC_NAME:c=o)
 SRC = $(addprefix $(SRC_PATH)/,$(SRC_NAME))

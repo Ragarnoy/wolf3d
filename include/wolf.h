@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 23:26:50 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/22 15:13:49 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/22 18:37:40 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,13 @@
 # include <errno.h>
 # include <fcntl.h>
 # include <pthread.h>
+# include <math.h>
+
+typedef struct			s_vec
+{
+	double				x;
+	double				y;
+}						t_vec;
 
 typedef struct			s_map
 {
@@ -36,9 +43,20 @@ typedef struct			s_map
 
 typedef struct			s_pnt
 {
-	unsigned int		x;
-	unsigned int		y;
+	int					x;
+	int					y;
 }						t_pnt;
+
+typedef struct			s_raycast
+{
+	t_vec				ntile;
+	t_vec				ray;
+	t_pnt				step;
+	t_pnt				map_pos;
+	t_vec				dif;
+	float				dist;
+	short				wall;
+}						t_raycast;
 
 typedef struct			s_env
 {
@@ -47,6 +65,12 @@ typedef struct			s_env
 	SDL_Window			*win_p;
 	SDL_Event			event;
 	SDL_Surface			*surf;
+	int					**map;
+	t_pnt				map_size;
+	t_vec				ppos;
+	int					tsize;
+	t_vec				dir_vec;
+	t_vec				cam_vec;
 }						t_env;
 
 int						exit_prog(int error);
@@ -55,5 +79,6 @@ t_env					*setup_env(void);
 t_env					*get_env(void);
 void					putpixel(int x, int y, float hue);
 void					movements(t_env *env);
+void					raycasting(t_env *env);
 
 #endif
