@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 23:57:24 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/22 19:30:50 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/22 21:40:35 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,6 @@ static void	event_loop(t_env *env)
 		while (SDL_PollEvent(&event))
 		{
 			movements(env);
-			if (env->state[SDL_SCANCODE_O])
-				env->flg.minimap = !env->flg.minimap;
-			if (env->flg.minimap)
-				minimap(env);
 			if ((event.type == SDL_QUIT) || (env->state[SDL_SCANCODE_ESCAPE]))
 				running = 0;
 			SDL_PumpEvents();
@@ -63,6 +59,8 @@ int			main(const int argc, const char **argv)
 		return(exit_prog(2));
 	env = setup_env();
 	env->map = *map;
+	//ft_memset(env->data, 0xFFFFFFFF, 800 * 800 * 4);
+	minimap(env);
 	SDL_UpdateWindowSurface(env->win_p);
 	event_loop(env);
 	SDL_DestroyWindow(env->win_p);
@@ -74,4 +72,8 @@ int			main(const int argc, const char **argv)
  * ligne 15 pour maj la fenetre
  * Sinon pour l'instant la fenetre va etre vide, normal
  * voila
+			if (env->state[SDL_SCANCODE_O])
+				env->flg.minimap = !env->flg.minimap;
+			if (env->flg.minimap)
+				minimap(env);
 */

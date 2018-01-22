@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/16 16:25:06 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/22 19:29:19 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/22 21:26:21 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ static void			setup_sdl(t_env *env)
 	env->data = (int*)env->surf->pixels;
 	SDL_PumpEvents();
 	env->state = SDL_GetKeyboardState(NULL);
+	printf("%d:%d, %d %d\n",env->surf->w, env->surf->h, env->surf->pitch, env->surf->format->format);
 }
 
 t_env				*get_env(void)
