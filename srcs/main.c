@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 23:57:24 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/20 22:14:37 by tle-gac-         ###   ########.fr       */
+/*   Updated: 2018/01/22 17:58:39 by tle-gac-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ void	calc_height(t_raycast *cast, t_env *env, int col)
 	int		wall_foot;
 	int		perceived;
 	int		i;
-	perceived = sqrt(env->dir_vec.x * env->dir_vec.x + env->dir_vec.y * env->dir_vec.y) * 800 / cast->dist/*(cast->dist * cos(atan((cast->ray.y - env->dir_vec.y) / env->dir_vec.x)))*/;
+
+	perceived = sqrt(env->dir_vec.x * env->dir_vec.x + env->dir_vec.y * env->dir_vec.y) * 800 / (cast->dist * cos(get_angle(cast->ray, env->dir_vec)))/*sqrt(env->dir_vec.x * env->dir_vec.x + env->dir_vec.y * env->dir_vec.y) * 800 / cast->dist(cast->dist * (cast->ray.x * env->dir_vec.x + cast->ray.y * env->dir_vec.y) / )*/;
 	//printf("Perceived : %d Distance : %f\n", perceived, cast->dist);
 	wall_top = W_HGHT / 2 - perceived / 2;
 	wall_foot = W_HGHT / 2 + perceived / 2;
@@ -83,7 +84,8 @@ void	test_tamere(t_env *env)
 				comp.x = cast.step.x;
 				comp.y = 0;
 				cast.dist += (cast.ntile.x / cast.dif.x) / cos(get_angle(cast.ray, comp));
-				cast.ntile.x += cast.dif.x;
+				cast.ntile.y -= cast.ntile.x;
+				cast.ntile.x = cast.dif.x;
 				cast.wall = 0;
 			}
 			else
@@ -92,7 +94,8 @@ void	test_tamere(t_env *env)
 				comp.x = 0;
 				comp.y = cast.step.y;
 				cast.dist += (cast.ntile.y / cast.dif.y) / cos(get_angle(cast.ray, comp));
-				cast.ntile.y += cast.dif.y;
+				cast.ntile.x -=  cast.ntile.y;
+				cast.ntile.y = cast.dif.y;
 				cast.wall = 1;
 			}
 			printf("Distance : %f\n", cast.dist);
