@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 23:26:50 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/22 18:14:05 by tle-gac-         ###   ########.fr       */
+/*   Updated: 2018/01/22 18:31:15 by tle-gac-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,5 +68,6 @@ int						exit_prog(int error);
 t_env					*setup_env(void);
 t_env					*get_env(void);
 void					putpixel(int x, int y, float hue);
+void					raycasting(t_env *env);
 
 #endif
