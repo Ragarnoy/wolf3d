@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 23:57:24 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/22 14:45:13 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/22 15:12:08 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,17 @@ int	exit_prog(int error)
 int	main(void)
 {
 	t_env		*env;
-	int			running = 1;
+	int			running;
 	SDL_Event	event;
 
+	running = 1;
 	env = setup_env();
 	SDL_UpdateWindowSurface(env->win_p);
 	while (running)
-		while(SDL_PollEvent(&event))
+		while (SDL_PollEvent(&event))
 		{
 			movements(env);
-			if((event.type == SDL_QUIT) || (env->state[SDL_SCANCODE_ESCAPE]))
+			if ((event.type == SDL_QUIT) || (env->state[SDL_SCANCODE_ESCAPE]))
 				running = 0;
 			SDL_PumpEvents();
 		}
