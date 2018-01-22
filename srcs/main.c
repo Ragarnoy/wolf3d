@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 23:57:24 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/22 17:17:29 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/22 19:30:50 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,10 @@ static void	event_loop(t_env *env)
 		while (SDL_PollEvent(&event))
 		{
 			movements(env);
+			if (env->state[SDL_SCANCODE_O])
+				env->flg.minimap = !env->flg.minimap;
+			if (env->flg.minimap)
+				minimap(env);
 			if ((event.type == SDL_QUIT) || (env->state[SDL_SCANCODE_ESCAPE]))
 				running = 0;
 			SDL_PumpEvents();

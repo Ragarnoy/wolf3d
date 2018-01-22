@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/16 16:25:06 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/22 17:05:03 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/22 19:29:19 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,7 @@ t_env				*setup_env(void)
 
 	env = get_env();
 	setup_sdl(env);
+	env->minimap.init = 0;
+	env->flg.minimap = 0;
 	return (env);
 }

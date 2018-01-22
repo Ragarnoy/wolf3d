@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 23:26:50 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/22 16:53:53 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/22 19:28:36 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,11 @@ typedef struct			s_map
 	char				**map;
 }						t_map;
 
+typedef struct			s_flags
+{
+	INTL				minimap;
+}						t_flags;
+
 typedef struct			s_pnt
 {
 	unsigned int		x;
@@ -42,6 +47,7 @@ typedef struct			s_pnt
 
 typedef struct			s_minimap
 {
+	int					init;
 	SDL_Surface			*surf;
 	SDL_Rect			dst;
 }						t_minimap;
@@ -55,6 +61,7 @@ typedef struct			s_env
 	SDL_Surface			*surf;
 	t_map				map;
 	t_minimap			minimap;
+	t_flags				flg;
 }						t_env;
 
 int						exit_prog(int error);
@@ -63,5 +70,6 @@ t_env					*setup_env(void);
 t_env					*get_env(void);
 void					putpixel(int x, int y, float hue);
 void					movements(t_env *env);
+void					minimap(t_env *env);
 
 #endif
