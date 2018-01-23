@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 23:57:24 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/23 17:57:08 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/23 20:50:02 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,19 +36,21 @@ static void	event_loop(t_env *env)
 	SDL_Event	event;
 
 	running = 1;
+	SDL_PollEvent(&event);
+	env->event = event;
 	SDL_UpdateWindowSurface(env->win_p);
 	SDL_UnlockSurface(env->surf);
 	while (running)
 	{
 		while (SDL_PollEvent(&event))
 		{
-		if (env->flg.minimap)
-			minimap(env);
-		flags(env);
-		movements(env);
+			if (event.type == SDL_KEYDOWN)
+			{
+				flags(env);
+				movements(env);
+			}
 			if ((event.type == SDL_QUIT) || (env->state[SDL_SCANCODE_ESCAPE]))
 				running = 0;
-			SDL_PumpEvents();
 		}
 	}
 }
