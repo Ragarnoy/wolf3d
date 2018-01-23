@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 23:57:24 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/23 15:41:42 by tle-gac-         ###   ########.fr       */
+/*   Updated: 2018/01/23 20:50:02 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,19 +36,21 @@ static void	event_loop(t_env *env)
 	SDL_Event	event;
 
 	running = 1;
-	raycasting(env);
+	SDL_PollEvent(&event);
+	env->event = event;
 	SDL_UpdateWindowSurface(env->win_p);
+	SDL_UnlockSurface(env->surf);
 	while (running)
 	{
 		while (SDL_PollEvent(&event))
 		{
-		if (env->flg.minimap)
-			minimap(env);
-		flags(env);
-		movements(env);
+			if (event.type == SDL_KEYDOWN)
+			{
+				flags(env);
+				movements(env);
+			}
 			if ((event.type == SDL_QUIT) || (env->state[SDL_SCANCODE_ESCAPE]))
 				running = 0;
-			SDL_PumpEvents();
 		}
 	}
 }
@@ -63,7 +65,7 @@ int			main(const int argc, const char **argv)
 	if (!(map = parser(open(argv[1], O_RDONLY))))
 		return(exit_prog(2));
 	env = setup_env(*map);
-	SDL_UpdateWindowSurface(env->win_p);
+	raycasting(env);
 	event_loop(env);
 	SDL_DestroyWindow(env->win_p);
 	SDL_Quit();

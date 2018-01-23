@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/16 19:06:22 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/19 19:23:58 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/23 17:20:57 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,23 @@ static void	clean_exit(int error, char **s)
 	exit_prog(error);
 }
 
-static int	checkvalidity(char *s, int wdth)
+static int	checkvalidity(char *s, t_map map, int cur)
 {
-	short	i;
+	unsigned int	i;
+	static short	flag = 0;
 
 	i = -1;
 	while (s[++i])
 	{
-		if (i > wdth + 1)
+		if (i > map.wdth + 1)
 			return (0);
+		if (s[i] == 'x')
+			flag += 1;
 		if (s[i] != '#' && s[i] != ' ' && s[i] != 'x')
 			return (0);
 	}
+	if ((unsigned int)cur == map.hght && flag != 1)
+		return (0);
 	return (1);
 }
 
@@ -43,7 +48,7 @@ static int	fillmap(t_map *map, int fd)
 	i = 0;
 	while (((error = (get_next_line(fd, &tmp))) > 0) && ++i)
 	{
-		if (!checkvalidity(tmp, map->wdth))
+		if (!checkvalidity(tmp, *map, i))
 			return (0);
 		map->map[i][0] = '#';
 		ft_strcpy(map->map[i] + 1, tmp);
