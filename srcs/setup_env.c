@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/16 16:25:06 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/22 18:36:04 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/23 15:03:24 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ static void			setup_sdl(t_env *env)
 	env->data = (int*)env->surf->pixels;
 	SDL_PumpEvents();
 	env->state = SDL_GetKeyboardState(NULL);
+	printf("%d:%d, %d %d\n",env->surf->w, env->surf->h, env->surf->pitch, env->surf->format->format);
 }
 
 t_env				*get_env(void)
@@ -45,14 +46,6 @@ t_env				*setup_env(void)
 	i = -1;
 	env = get_env();
 	setup_sdl(env);
-	env->map = malloc(sizeof(int*) * 5);
-	while( ++i < 5)
-	{
-		j = -1;
-		env->map[i] = malloc(sizeof(int) * 5);
-		while (++j < 5)
-			env->map[i][j] = (i % 4 == 0 || j % 4 == 0) ? 1 : 0;
-	}
 	env->tsize = 1.0;
 	env->ppos.x = 3.5;
 	env->ppos.y = 2.8;
@@ -62,5 +55,7 @@ t_env				*setup_env(void)
 	env->dir_vec.y = -1.0;
 	env->cam_vec.x = 0.66;
 	env->cam_vec.y = 0.0;
+	env->minimap.init = 0;
+	env->flg.minimap = 0;
 	return (env);
 }
