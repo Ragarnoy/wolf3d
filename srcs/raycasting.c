@@ -6,7 +6,7 @@
 /*   By: tle-gac- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/22 18:29:02 by tle-gac-          #+#    #+#             */
-/*   Updated: 2018/01/22 18:32:25 by tle-gac-         ###   ########.fr       */
+/*   Updated: 2018/01/23 15:48:07 by tle-gac-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,11 +91,11 @@ void	raycasting(t_env *env)
 				cast.ntile.y = cast.dif.y;
 				cast.wall = 1;
 			}
-			printf("Distance : %f\n", cast.dist);
-			if (env->map[cast.map_pos.x][cast.map_pos.y] == 1)
+			//printf("Distance : %f\n", cast.dist);
+			if (env->map.map[cast.map_pos.x][cast.map_pos.y] == '#')
 			{
 				hit = 1;
-				printf("Wall hit [%d][%d]\n", cast.map_pos.x, cast.map_pos.y);
+				//printf("Wall hit [%d][%d]\n", cast.map_pos.x, cast.map_pos.y);
 				calc_height(&cast, env, i);
 			}
 		}

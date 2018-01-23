@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/16 16:25:06 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/23 15:03:24 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/23 15:50:41 by tle-gac-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,22 +37,32 @@ t_env				*get_env(void)
 	return (env);
 }
 
-t_env				*setup_env(void)
+t_env				*setup_env(t_map lul)
 {
-	t_env	*env;
-	int		i;
-	int		j;
+	t_env				*env;
+	unsigned int		i;
+	unsigned int		j;
 
 	i = -1;
+	j = -1;
 	env = get_env();
 	setup_sdl(env);
+	env->map = lul;
+	env->map.wdth += 2;
+	env->map.hght += 2;
+	while (++i < env->map.hght)
+	{
+		while (++j < env->map.wdth)
+			if (env->map.map[i][j] == 'x')
+			{
+				env->ppos.x = j + 0.5;
+				env->ppos.y = i + 0.5;
+			}
+		j = -1;
+	}
 	env->tsize = 1.0;
-	env->ppos.x = 3.5;
-	env->ppos.y = 2.8;
-	env->map_size.x = 5;
-	env->map_size.y = 5;
 	env->dir_vec.x = 0.0;
-	env->dir_vec.y = -1.0;
+	env->dir_vec.y = -0.3;
 	env->cam_vec.x = 0.66;
 	env->cam_vec.y = 0.0;
 	env->minimap.init = 0;

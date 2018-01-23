@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 23:57:24 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/23 15:09:00 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/23 15:41:42 by tle-gac-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,7 @@ int			main(const int argc, const char **argv)
 		return (exit_prog(0));
 	if (!(map = parser(open(argv[1], O_RDONLY))))
 		return(exit_prog(2));
-	env = setup_env();
-	env->map = *map;
+	env = setup_env(*map);
 	SDL_UpdateWindowSurface(env->win_p);
 	event_loop(env);
 	SDL_DestroyWindow(env->win_p);
