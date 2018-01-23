@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 23:26:50 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/22 19:28:36 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/23 14:50:46 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ t_env					*setup_env(void);
 t_env					*get_env(void);
 void					putpixel(int x, int y, float hue);
 void					movements(t_env *env);
+void					flags(t_env *env);
 void					minimap(t_env *env);
 
 #endif

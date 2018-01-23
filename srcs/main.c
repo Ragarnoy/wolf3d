@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 23:57:24 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/22 21:40:35 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/23 14:53:26 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,10 @@ static void	event_loop(t_env *env)
 	{
 		while (SDL_PollEvent(&event))
 		{
-			movements(env);
+		if (env->flg.minimap)
+			minimap(env);
+		flags(env);
+		movements(env);
 			if ((event.type == SDL_QUIT) || (env->state[SDL_SCANCODE_ESCAPE]))
 				running = 0;
 			SDL_PumpEvents();
@@ -60,7 +63,7 @@ int			main(const int argc, const char **argv)
 	env = setup_env();
 	env->map = *map;
 	//ft_memset(env->data, 0xFFFFFFFF, 800 * 800 * 4);
-	minimap(env);
+	//minimap(env);
 	SDL_UpdateWindowSurface(env->win_p);
 	event_loop(env);
 	SDL_DestroyWindow(env->win_p);

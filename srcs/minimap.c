@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/22 15:43:02 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/22 21:54:14 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/23 14:54:33 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,11 @@ static void	draw(t_env *env)
 
 static void	init_minimap(t_env *env)
 {
-	env->minimap.surf = SDL_CreateRGBSurfaceWithFormat(0, W_WDTH / 4, W_HGHT / 4, 32, env->surf->format->format);
-	env->minimap.dst.x = W_WDTH - (W_HGHT / 4);
+	env->minimap.surf = SDL_CreateRGBSurfaceWithFormat(0, W_WDTH / 8, W_HGHT / 8, 32, env->surf->format->format);
+	env->minimap.dst.x = W_WDTH - (W_HGHT / 8) + 1;
 	env->minimap.dst.y = 0;
-	env->minimap.dst.w = (W_HGHT / 4);
-	env->minimap.dst.h = (W_HGHT / 4);
+	env->minimap.dst.w = (W_HGHT / 8);
+	env->minimap.dst.h = (W_HGHT / 8);
 	env->minimap.init = 1;
 }
 
