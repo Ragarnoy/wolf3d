@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 23:26:50 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/23 15:54:32 by tle-gac-         ###   ########.fr       */
+/*   Updated: 2018/01/23 21:48:42 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # define WALL 35
 
 # include "../libft/libft.h"
-# include <SDL.h>
+# include "sdl/SDL.h"
 # include <stdio.h>
 # include <errno.h>
 # include <fcntl.h>
@@ -73,16 +73,17 @@ typedef struct			s_minimap
 typedef struct			s_env
 {
 	int					*data;
+	int					tsize;
 	const Uint8			*state;
 	SDL_Window			*win_p;
 	SDL_Event			event;
 	SDL_Surface			*surf;
 	t_vec				ppos;
-	int					tsize;
 	t_vec				dir_vec;
 	t_vec				cam_vec;
 	t_map				map;
 	t_minimap			minimap;
+	SDL_Surface			*surtex[1];
 	t_flags				flg;
 }						t_env;
 

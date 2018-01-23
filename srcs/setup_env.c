@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/16 16:25:06 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/23 15:50:41 by tle-gac-         ###   ########.fr       */
+/*   Updated: 2018/01/23 21:50:16 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ static void			setup_sdl(t_env *env)
 	env->data = (int*)env->surf->pixels;
 	SDL_PumpEvents();
 	env->state = SDL_GetKeyboardState(NULL);
+	env->surtex[0] = SDL_LoadBMP("../tex/df7.bmp");
 	printf("%d:%d, %d %d\n",env->surf->w, env->surf->h, env->surf->pitch, env->surf->format->format);
 }
 
