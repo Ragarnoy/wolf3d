@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 13:53:46 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/25 18:31:20 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/25 19:21:27 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,12 @@ void		setup_sound(t_env *env)
 	Uint32				wav_lgth;
 	SDL_AudioDeviceID	deviceId;
 
-	SDL_LoadWAV("./sound/menu.wav", &env->snd.spec, &wav_buf, &wav_lgth);
-	deviceId = SDL_OpenAudioDevice("35CTL", 0, &env->snd.spec, NULL, 0);
 	ft_putendl("crash2");
+	SDL_LoadWAV("./sound/menu.wav", &env->spec, &wav_buf, &wav_lgth);
+	deviceId = SDL_OpenAudioDevice(SDL_GetAudioDeviceName(1,0), 0, &env->spec, NULL, 0);
+	ft_putendl("crash3");
 	if(SDL_QueueAudio(deviceId, wav_buf, wav_lgth) < 0)
 		printf("%s\n",SDL_GetError());
 	SDL_PauseAudioDevice(deviceId, 0);
 	ft_putendl("crash3");
-	if (env->snd.audio_len == 0)
-		SDL_CloseAudio();
 }

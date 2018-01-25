@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 23:57:24 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/23 22:04:06 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/25 18:58:45 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ int			main(const int argc, const char **argv)
 		return(exit_prog(2));
 	env = setup_env(*map);
 	raycasting(env);
+	setup_sound(env);
 	event_loop(env);
 	SDL_DestroyWindow(env->win_p);
 	SDL_Quit();

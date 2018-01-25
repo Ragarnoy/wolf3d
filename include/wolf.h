@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 23:26:50 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/23 22:04:57 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/25 19:06:35 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # define WALL 35
 
 # include "../libft/libft.h"
-# include <SDL.h>
+# include "sdl/SDL.h"
 # include <stdio.h>
 # include <errno.h>
 # include <fcntl.h>
@@ -78,6 +78,7 @@ typedef struct			s_env
 	SDL_Window			*win_p;
 	SDL_Event			event;
 	SDL_Surface			*surf;
+	SDL_AudioSpec		spec;
 	t_vec				ppos;
 	t_vec				dir_vec;
 	t_vec				cam_vec;
@@ -91,6 +92,7 @@ int						exit_prog(int error);
 t_map					*parser(int fd);
 t_env					*setup_env(t_map lul);
 t_env					*get_env(void);
+void					setup_sound(t_env *env);
 void					putpixel(int x, int y, float hue);
 void					movements(t_env *env);
 void					raycasting(t_env *env);
