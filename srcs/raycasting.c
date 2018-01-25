@@ -6,7 +6,7 @@
 /*   By: tle-gac- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/22 18:29:02 by tle-gac-          #+#    #+#             */
-/*   Updated: 2018/01/23 15:48:07 by tle-gac-         ###   ########.fr       */
+/*   Updated: 2018/01/24 18:06:40 by tle-gac-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	calc_height(t_raycast *cast, t_env *env, int col)
 	int		perceived;
 	int		i;
 
-	perceived = sqrt(env->dir_vec.x * env->dir_vec.x + env->dir_vec.y * env->dir_vec.y) * 800 / (cast->dist * cos(get_angle(cast->ray, env->dir_vec)))/*sqrt(env->dir_vec.x * env->dir_vec.x + env->dir_vec.y * env->dir_vec.y) * 800 / cast->dist(cast->dist * (cast->ray.x * env->dir_vec.x + cast->ray.y * env->dir_vec.y) / )*/;
+	perceived = sqrt(env->dir_vec.x * env->dir_vec.x + env->dir_vec.y * env->dir_vec.y) * W_HGHT / (cast->dist * cos(get_angle(cast->ray, env->dir_vec)))/*sqrt(env->dir_vec.x * env->dir_vec.x + env->dir_vec.y * env->dir_vec.y) * 800 / cast->dist(cast->dist * (cast->ray.x * env->dir_vec.x + cast->ray.y * env->dir_vec.y) / )*/;
 	//printf("Perceived : %d Distance : %f\n", perceived, cast->dist);
 	wall_top = W_HGHT / 2 - perceived / 2;
 	wall_foot = W_HGHT / 2 + perceived / 2;
@@ -46,15 +46,19 @@ void	calc_height(t_raycast *cast, t_env *env, int col)
 	}
 }
 
-void	raycasting(t_env *env)
+int		raycasting(void *tmp)
 {
 	t_raycast	cast;
 	int			i;
 	short		hit;
 	t_vec		comp;
+	t_env		*env;
+	t_win_part	*part;
 
-	i = -1;
-	while (++i < W_WDTH)
+	env = get_env();
+	part = (t_win_part*)tmp;
+	i = part->a.x - 1;
+	while (++i < part->b.x)
 	{
 		hit = 0;
 		cast.dist = 0;
@@ -100,4 +104,5 @@ void	raycasting(t_env *env)
 			}
 		}
 	}
+	return (1);
 }

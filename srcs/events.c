@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/22 14:03:53 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/24 17:15:10 by tle-gac-         ###   ########.fr       */
+/*   Updated: 2018/01/24 18:10:36 by tle-gac-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	move_dir(int sense, t_env *env)
 	mag = sqrt(env->dir_vec.x * env->dir_vec.x + env->dir_vec.y * env->dir_vec.y);
 	x = 0.05 * env->dir_vec.x / mag * (env->dir_vec.x == 0 ? 0 : env->dir_vec.x / fabs(env->dir_vec.x)) * (env->dir_vec.x < 0 ? -1 : 1) * sense;
 	y = 0.05 * env->dir_vec.y / mag * (env->dir_vec.y == 0 ? 0 : env->dir_vec.y / fabs(env->dir_vec.y)) * (env->dir_vec.y < 0 ? -1 : 1) * sense;
-	printf("Move : %f %f\n", x, y);
 	if(env->map.map[(int)(env->ppos.x + x)][(int)(env->ppos.y + y)] != '#')
 	{
 		env->ppos.x += x;
@@ -71,8 +70,7 @@ void	movements(t_env *env)
 		strafe(1, env);
 	else if (env->state[SDL_SCANCODE_RIGHT])
 		rotate(1, env);
-	raycasting(env);
-	SDL_UpdateWindowSurface(env->win_p);
+	draw_window(env);
 	//redraw
 }
 
@@ -90,6 +88,5 @@ void	flags(t_env *env)
 			ft_memset((int*)env->minimap.surf->pixels, 0, (W_WDTH / 4) * 4);
 			env->flg.minimap = 0;
 		}
-	SDL_UpdateWindowSurface(env->win_p);
 
 }
