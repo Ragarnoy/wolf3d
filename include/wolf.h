@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 23:26:50 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/25 14:46:08 by tle-gac-         ###   ########.fr       */
+/*   Updated: 2018/01/25 18:44:24 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ typedef struct			s_env
 	t_vec				cam_vec;
 	t_map				map;
 	t_minimap			minimap;
-	SDL_Surface			*surtex[1];
+	SDL_Surface			*surtex[4];
 	t_flags				flg;
 }						t_env;
 
