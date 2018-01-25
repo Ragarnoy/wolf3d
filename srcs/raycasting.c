@@ -6,7 +6,7 @@
 /*   By: tle-gac- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/22 18:29:02 by tle-gac-          #+#    #+#             */
-/*   Updated: 2018/01/24 18:06:40 by tle-gac-         ###   ########.fr       */
+/*   Updated: 2018/01/25 18:38:13 by tle-gac-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,10 @@ void	calc_height(t_raycast *cast, t_env *env, int col)
 
 	perceived = sqrt(env->dir_vec.x * env->dir_vec.x + env->dir_vec.y * env->dir_vec.y) * W_HGHT / (cast->dist * cos(get_angle(cast->ray, env->dir_vec)))/*sqrt(env->dir_vec.x * env->dir_vec.x + env->dir_vec.y * env->dir_vec.y) * 800 / cast->dist(cast->dist * (cast->ray.x * env->dir_vec.x + cast->ray.y * env->dir_vec.y) / )*/;
 	//printf("Perceived : %d Distance : %f\n", perceived, cast->dist);
+	if (cast->wall == 0)
+		cast->relative_pos = cast->step.y == 1 ? 1 - cast->ntile.y : cast->ntile.y;
+	else
+		cast->relative_pos = cast->step.x == 1 ? 1 - cast->ntile.x : cast->ntile.x;
 	wall_top = W_HGHT / 2 - perceived / 2;
 	wall_foot = W_HGHT / 2 + perceived / 2;
 	i = -1;
@@ -40,7 +44,8 @@ void	calc_height(t_raycast *cast, t_env *env, int col)
 		if (i < wall_top)
 			putpixel(col, i, -2);
 		else if (i <= wall_foot)
-			putpixel(col, i, ((cast->wall == 0 ? (cast->step.x + 3) : (cast->step.y + 3)) + cast->wall) * 50);
+			//putpixel(col, i, get_texture(((cast->wall == 0 ? (cast->step.x + 3) : (cast->step.y + 3)) + cast->wall) * 50, env, cast));
+			env->data[i * W_WDTH + col] = ((int*)env->surtex[0]->pixels)[(400 * (int)cast->relative_pos) + (400 / (int)perceived * (i - wall_top))];
 		else
 			putpixel(col, i, -1);
 	}
@@ -99,7 +104,6 @@ int		raycasting(void *tmp)
 			if (env->map.map[cast.map_pos.x][cast.map_pos.y] == '#')
 			{
 				hit = 1;
-				//printf("Wall hit [%d][%d]\n", cast.map_pos.x, cast.map_pos.y);
 				calc_height(&cast, env, i);
 			}
 		}

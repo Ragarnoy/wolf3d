@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 23:26:50 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/25 12:17:31 by tle-gac-         ###   ########.fr       */
+/*   Updated: 2018/01/25 14:46:08 by tle-gac-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ typedef struct			s_raycast
 	t_pnt				step;
 	t_pnt				map_pos;
 	t_vec				dif;
+	float				relative_pos;
 	float				dist;
 	short				wall;
 }						t_raycast;
