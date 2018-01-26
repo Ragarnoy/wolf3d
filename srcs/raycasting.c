@@ -6,7 +6,7 @@
 /*   By: tle-gac- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/22 18:29:02 by tle-gac-          #+#    #+#             */
-/*   Updated: 2018/01/25 18:38:13 by tle-gac-         ###   ########.fr       */
+/*   Updated: 2018/01/26 19:02:42 by tle-gac-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,26 @@ void	calc_height(t_raycast *cast, t_env *env, int col)
 	int		wall_foot;
 	int		perceived;
 	int		i;
+	float	zekflop;
 
-	perceived = sqrt(env->dir_vec.x * env->dir_vec.x + env->dir_vec.y * env->dir_vec.y) * W_HGHT / (cast->dist * cos(get_angle(cast->ray, env->dir_vec)))/*sqrt(env->dir_vec.x * env->dir_vec.x + env->dir_vec.y * env->dir_vec.y) * 800 / cast->dist(cast->dist * (cast->ray.x * env->dir_vec.x + cast->ray.y * env->dir_vec.y) / )*/;
+	perceived = sqrt(env->dir_vec.x * env->dir_vec.x + env->dir_vec.y * env->dir_vec.y) * W_HGHT / (cast->dist * cos(get_angle(cast->ray, env->dir_vec)));
 	//printf("Perceived : %d Distance : %f\n", perceived, cast->dist);
 	if (cast->wall == 0)
-		cast->relative_pos = cast->step.y == 1 ? 1 - cast->ntile.y : cast->ntile.y;
+	{
+		if (cast->ray.y == 0)
+			cast->relative_pos = modff(env->ppos.y, &zekflop);
+		else
+			cast->relative_pos = cast->step.y == 1 ? 1 - (cast->ntile.y / cast->dif.y) : cast->ntile.y / cast->dif.y;
+	}
 	else
-		cast->relative_pos = cast->step.x == 1 ? 1 - cast->ntile.x : cast->ntile.x;
+	{
+		if (cast->ray.x == 0)
+			cast->relative_pos = modff(env->ppos.x, &zekflop);
+		else
+			cast->relative_pos = cast->step.x == 1 ? 1 - (cast->ntile.x / cast->dif.x) : cast->ntile.x / cast->dif.x;
+	}
+	if (cast->ray.x == 0 || cast->ray.y == 0)
+		//printf("Relative pos = %f / %f = %f\n", cast->wall == 0 ? cast->ntile.y : cast->ntile.x, cast->wall == 0 ? cast->dif.y : cast->dif.x, cast->relative_pos);
 	wall_top = W_HGHT / 2 - perceived / 2;
 	wall_foot = W_HGHT / 2 + perceived / 2;
 	i = -1;
@@ -44,8 +57,10 @@ void	calc_height(t_raycast *cast, t_env *env, int col)
 		if (i < wall_top)
 			putpixel(col, i, -2);
 		else if (i <= wall_foot)
+		{
 			//putpixel(col, i, get_texture(((cast->wall == 0 ? (cast->step.x + 3) : (cast->step.y + 3)) + cast->wall) * 50, env, cast));
-			env->data[i * W_WDTH + col] = ((int*)env->surtex[0]->pixels)[(400 * (int)cast->relative_pos) + (400 / (int)perceived * (i - wall_top))];
+			env->data[i * W_WDTH + col] = ((int*)env->surtex[0]->pixels)[(int)(400 * cast->relative_pos) + 400 * (int)(400 / perceived * (i - wall_top))];
+		}
 		else
 			putpixel(col, i, -1);
 	}
@@ -69,6 +84,7 @@ int		raycasting(void *tmp)
 		cast.dist = 0;
 		cast.ray.x = env->dir_vec.x + (env->cam_vec.x * (i - W_WDTH / 2) / (W_WDTH / 2));
 		cast.ray.y = env->dir_vec.y + (env->cam_vec.y * (i - W_WDTH / 2) / (W_WDTH / 2));
+		//printf("Ray number %d : %f %f\n", i, cast.ray.x, cast.ray.y);
 		cast.dif.x = 1 / fabs(cast.ray.x);
 		cast.dif.y = 1 / fabs(cast.ray.y);
 		cast.ntile.x = (cast.ray.x < 0 ? env->ppos.x - floor(env->ppos.x) : floor(env->ppos.x + 1) - env->ppos.x) * cast.dif.x;
