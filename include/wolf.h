@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 23:26:50 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/26 19:16:40 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/26 21:58:28 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # define TEXNBR 4
 
 # include "../libft/libft.h"
-# include <SDL.h>
+# include "sdl/SDL.h"
 # include <stdio.h>
 # include <errno.h>
 # include <fcntl.h>
@@ -46,6 +46,7 @@ typedef struct			s_map
 typedef struct			s_flags
 {
 	INTL				minimap;
+	int_least8_t				mv[6];
 }						t_flags;
 
 typedef struct			s_pnt
@@ -87,12 +88,12 @@ typedef struct			s_env
 	SDL_Window			*win_p;
 	SDL_Event			event;
 	SDL_Surface			*surf;
+	SDL_Surface			*surtex[TEXNBR];
 	t_vec				ppos;
 	t_vec				dir_vec;
 	t_vec				cam_vec;
 	t_map				map;
 	t_minimap			minimap;
-	SDL_Surface			*surtex[TEXNBR];
 	t_flags				flg;
 }						t_env;
 
@@ -101,7 +102,7 @@ t_map					*parser(int fd);
 t_env					*setup_env(t_map lul);
 t_env					*get_env(void);
 void					putpixel(int x, int y, float hue);
-void					movements(t_env *env);
+void					movements(t_env *env, int swtch);
 int						raycasting(void *tmp);
 void					flags(t_env *env);
 void					minimap(t_env *env);

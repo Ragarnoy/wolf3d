@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/16 16:25:06 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/26 17:28:31 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/26 22:28:45 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void			setup_sdl(t_env *env)
 	env->win_p = SDL_CreateWindow("WOLF3D",
 		SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
 		W_WDTH, W_HGHT,
-		SDL_WINDOW_FULLSCREEN_DESKTOP);
+		0);
 	env->surf = SDL_GetWindowSurface(env->win_p);
 	env->data = (int*)env->surf->pixels;
 	SDL_PumpEvents();
@@ -69,6 +69,6 @@ t_env				*setup_env(t_map lul)
 	env->cam_vec.x = 0.66;
 	env->cam_vec.y = 0.0;
 	env->minimap.init = 0;
-	env->flg.minimap = 0;
+	ft_bzero(&env->flg, sizeof(t_flags));
 	return (env);
 }

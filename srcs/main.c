@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 23:57:24 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/26 17:28:17 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/26 22:35:27 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,11 @@ static void	event_loop(t_env *env)
 		while (SDL_PollEvent(&event))
 		{
 			if (event.type == SDL_KEYDOWN)
-			{
 				flags(env);
-				movements(env);
-			}
 			if ((event.type == SDL_QUIT) || (env->state[SDL_SCANCODE_ESCAPE]))
 				running = 0;
 		}
+		movements(env, 1);
 	}
 }
 

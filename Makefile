@@ -1,6 +1,6 @@
 NAME = wolf3d
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror `sdl2-config --cflags`
+CFLAGS = -Wall -Wextra -Werror -g `sdl2-config --cflags`
 CPPFLAGS = -Iinclude
 LDLIBS = -lft `sdl2-config --libs`
 LDFLAGS = -Llibft -lpthread
