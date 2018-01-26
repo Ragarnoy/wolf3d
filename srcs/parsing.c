@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/16 19:06:22 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/23 17:20:57 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/26 17:32:31 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,13 @@
 static void	clean_exit(int error, char **s)
 {
 	free(s);
-//	while (s[++i])
+	int i;
+
+	i = -1;
+	while (s[++i])
+	{
+		free(s + i);
+	}
 	exit_prog(error);
 }
 
@@ -71,7 +77,7 @@ t_map		*parser(int fd)
 
 	map = (t_map*)malloc(sizeof(t_map));
 	if (!(get_next_line(fd, &str) && (map->wdth = ft_atoi(str))))
-		clean_exit(1, &str);
+		exit_prog(1);
 	free(str);
 	if (!(get_next_line(fd, &str) && (map->hght = ft_atoi(str))))
 		clean_exit(1, &str);

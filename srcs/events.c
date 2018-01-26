@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/22 14:03:53 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/24 18:10:36 by tle-gac-         ###   ########.fr       */
+/*   Updated: 2018/01/26 17:16:16 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ void	flags(t_env *env)
 		}
 	else if (env->state[SDL_SCANCODE_M] && env->flg.minimap)
 		{
-			ft_putendl("delet this");
 			ft_memset((int*)env->minimap.surf->pixels, 0, (W_WDTH / 4) * 4);
 			env->flg.minimap = 0;
 		}
