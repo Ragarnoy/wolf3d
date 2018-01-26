@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 23:26:50 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/26 17:40:39 by tle-gac-         ###   ########.fr       */
+/*   Updated: 2018/01/26 19:12:08 by tle-gac-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # define W_HGHT 800
 # define SPWN 120
 # define WALL 35
-# define THREAD_NBR 1
+# define THREAD_NBR 8
 
 # include "../libft/libft.h"
 # include <SDL.h>
