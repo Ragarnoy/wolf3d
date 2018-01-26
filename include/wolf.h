@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 23:26:50 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/26 19:16:40 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/26 22:58:28 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ t_env					*get_env(void);
 void					putpixel(int x, int y, float hue);
 void					movements(t_env *env);
 int						raycasting(void *tmp);
-void					flags(t_env *env);
+void					flags(t_env *env, SDL_Event event);
 void					minimap(t_env *env);
 void					draw_window(t_env *env);
 

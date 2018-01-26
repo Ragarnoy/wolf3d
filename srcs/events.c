@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/22 14:03:53 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/26 17:16:16 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/26 22:58:45 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,18 +74,8 @@ void	movements(t_env *env)
 	//redraw
 }
 
-void	flags(t_env *env)
+void	flags(t_env *env, SDL_Event event)
 {
-	SDL_PollEvent(&env->event);
-	if (env->state[SDL_SCANCODE_M] && !env->flg.minimap)
-		{
-			minimap(env);
-			env->flg.minimap = 1;
-		}
-	else if (env->state[SDL_SCANCODE_M] && env->flg.minimap)
-		{
-			ft_memset((int*)env->minimap.surf->pixels, 0, (W_WDTH / 4) * 4);
-			env->flg.minimap = 0;
-		}
-
+	if (event.key.keysym.scancode == SDL_SCANCODE_M)
+			env->flg.minimap = !env->flg.minimap;
 }

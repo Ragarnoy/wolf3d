@@ -6,7 +6,7 @@
 /*   By: tle-gac- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/24 17:29:16 by tle-gac-          #+#    #+#             */
-/*   Updated: 2018/01/24 20:16:57 by tle-gac-         ###   ########.fr       */
+/*   Updated: 2018/01/26 22:53:03 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,7 @@ void	draw_window(t_env *env)
 	flags(env);
 	while (++i < THREAD_NBR)
 		SDL_WaitThread(threads[i], &IAmUselessAsShit);
+	if (env->flg.minimap)
+		minimap(env);
 	SDL_UpdateWindowSurface(env->win_p);
 }
