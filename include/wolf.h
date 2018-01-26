@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 23:26:50 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/26 22:58:28 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/27 00:08:03 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,13 @@
 # define TEXNBR 4
 
 # include "../libft/libft.h"
-# include <SDL.h>
 # include <stdio.h>
 # include <errno.h>
 # include <fcntl.h>
 # include <math.h>
+# include <SDL.h>
 # include <SDL_thread.h>
+# include "SDL_ttf.h"
 
 typedef struct			s_vec
 {
