@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/22 15:43:02 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/23 20:51:18 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/26 16:51:15 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ static void	init_minimap(t_env *env)
 	env->minimap.dst.y = 0;
 	env->minimap.dst.w = (W_HGHT / 8);
 	env->minimap.dst.h = (W_HGHT / 8);
+	draw(env);
 	env->minimap.init = 1;
 }
 
@@ -68,7 +69,6 @@ void	minimap(t_env *env)
 {
 	if (env->minimap.init == 0)
 		init_minimap(env);
-	draw(env);
 	SDL_BlitScaled(env->minimap.surf, 0, env->surf, &env->minimap.dst);
 	SDL_UpdateWindowSurface(env->win_p);
 }

@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/16 16:25:06 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/25 18:44:20 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/26 17:28:31 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void			setup_sdl(t_env *env)
 	env->win_p = SDL_CreateWindow("WOLF3D",
 		SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
 		W_WDTH, W_HGHT,
-		SDL_WINDOW_ALLOW_HIGHDPI);
+		SDL_WINDOW_FULLSCREEN_DESKTOP);
 	env->surf = SDL_GetWindowSurface(env->win_p);
 	env->data = (int*)env->surf->pixels;
 	SDL_PumpEvents();
@@ -27,7 +27,6 @@ static void			setup_sdl(t_env *env)
 	env->surtex[1] = SDL_LoadBMP("./tex/greystone.bmp");
 	env->surtex[2] = SDL_LoadBMP("./tex/mossy.bmp");
 	env->surtex[3] = SDL_LoadBMP("./tex/wood.bmp");
-	printf("%d:%d, %d %d\n",env->surf->w, env->surf->h, env->surf->pitch, env->surf->format->format);
 }
 
 t_env				*get_env(void)

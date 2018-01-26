@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 23:26:50 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/25 18:44:24 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/26 17:26:23 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,15 @@
 # define MAX_INT 2147483647
 # define INTF uint_fast8_t
 # define INTL uint_least8_t
-# define W_WDTH 800
-# define W_HGHT 800
+# define W_WDTH 2560
+# define W_HGHT 1440
 # define SPWN 120
 # define WALL 35
 # define THREAD_NBR 8
+# define TEXNBR 4
 
 # include "../libft/libft.h"
-# include <SDL.h>
+# include "sdl/SDL.h"
 # include <stdio.h>
 # include <errno.h>
 # include <fcntl.h>
@@ -91,7 +92,7 @@ typedef struct			s_env
 	t_vec				cam_vec;
 	t_map				map;
 	t_minimap			minimap;
-	SDL_Surface			*surtex[4];
+	SDL_Surface			*surtex[TEXNBR];
 	t_flags				flg;
 }						t_env;
 
