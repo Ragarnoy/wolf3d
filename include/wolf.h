@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 23:26:50 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/26 17:26:23 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/26 19:09:13 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # define TEXNBR 4
 
 # include "../libft/libft.h"
-# include "sdl/SDL.h"
+# include <SDL.h>
 # include <stdio.h>
 # include <errno.h>
 # include <fcntl.h>
