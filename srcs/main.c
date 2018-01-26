@@ -6,11 +6,21 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 23:57:24 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/25 12:17:47 by tle-gac-         ###   ########.fr       */
+/*   Updated: 2018/01/26 17:28:17 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/wolf.h"
+
+void		liberate(t_env *env)
+{
+	int i;
+
+	i = -1;
+	while (++i < TEXNBR)
+		SDL_FreeSurface(env->surtex[i]);
+	SDL_FreeSurface(env->minimap.surf);
+}
 
 int			exit_prog(int error)
 {
@@ -24,10 +34,9 @@ int			exit_prog(int error)
 		ft_putendl("wolf3d : parsing error");
 	else if (error == 4)
 		ft_putendl("wolf3d : invalid map (liar)");
-	exit(-1);
-	/*
-	 * subsystem quit
-	*/
+	SDL_QuitSubSystem(SDL_INIT_VIDEO);
+	SDL_Quit();
+	exit(64);
 }
 
 static void	event_loop(t_env *env)
@@ -67,7 +76,8 @@ int			main(const int argc, const char **argv)
 	env = setup_env(*map);
 	draw_window(env);
 	event_loop(env);
-	SDL_DestroyWindow(env->win_p);
+	liberate(env);
+	SDL_QuitSubSystem(SDL_INIT_VIDEO);
 	SDL_Quit();
 	return (0);
 }
