@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 23:57:24 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/26 22:57:54 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/27 00:48:30 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,16 @@ static void	event_loop(t_env *env)
 	env->event = event;
 	SDL_UpdateWindowSurface(env->win_p);
 	SDL_UnlockSurface(env->surf);
+	TTF_Font *justice = TTF_OpenFont("./tex/justicegrad.ttf", 500);
+	SDL_Color color={250,0,0,0};
+	SDL_Surface *text_surface = TTF_RenderText_Blended(justice, "WOLF3D", color);
 	while (running)
 	{
+		while(1)
+		{
+			SDL_BlitSurface(text_surface,NULL,env->surf,NULL);
+			SDL_UpdateWindowSurface(env->win_p);
+		}
 		while (SDL_PollEvent(&event))
 		{
 			if (event.type == SDL_KEYDOWN)
@@ -73,6 +81,7 @@ int			main(const int argc, const char **argv)
 		return(exit_prog(2));
 	env = setup_env(*map);
 	draw_window(env);
+	TTF_Init();
 	event_loop(env);
 	liberate(env);
 	SDL_QuitSubSystem(SDL_INIT_VIDEO);
