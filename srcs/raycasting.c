@@ -6,7 +6,7 @@
 /*   By: tle-gac- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/22 18:29:02 by tle-gac-          #+#    #+#             */
-/*   Updated: 2018/01/26 19:02:42 by tle-gac-         ###   ########.fr       */
+/*   Updated: 2018/01/28 00:34:12 by tle-gac-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,11 @@ void	calc_height(t_raycast *cast, t_env *env, int col)
 		else
 			cast->relative_pos = cast->step.x == 1 ? 1 - (cast->ntile.x / cast->dif.x) : cast->ntile.x / cast->dif.x;
 	}
-	if (cast->ray.x == 0 || cast->ray.y == 0)
+	//if (cast->ray.x == 0 || cast->ray.y == 0)
 		//printf("Relative pos = %f / %f = %f\n", cast->wall == 0 ? cast->ntile.y : cast->ntile.x, cast->wall == 0 ? cast->dif.y : cast->dif.x, cast->relative_pos);
-	wall_top = W_HGHT / 2 - perceived / 2;
-	wall_foot = W_HGHT / 2 + perceived / 2;
+	wall_top = W_HGHT / 2.0 - perceived / 2.0;
+	wall_foot = W_HGHT / 2.0 + perceived / 2.0;
+	//printf("Perceived : %d ||| By wall : %d\n", perceived, wall_foot - wall_top);
 	i = -1;
 	//printf("Top : %d Foot : %d\n", wall_top, wall_foot);
 	while (++i < W_HGHT)
@@ -59,7 +60,17 @@ void	calc_height(t_raycast *cast, t_env *env, int col)
 		else if (i <= wall_foot)
 		{
 			//putpixel(col, i, get_texture(((cast->wall == 0 ? (cast->step.x + 3) : (cast->step.y + 3)) + cast->wall) * 50, env, cast));
-			env->data[i * W_WDTH + col] = ((int*)env->surtex[0]->pixels)[(int)(400 * cast->relative_pos) + 400 * (int)(400 / perceived * (i - wall_top))];
+			uint32_t tmp;
+			//tmp	= (uint32_t*)(&((unsigned char*)env->surtex[0]->pixels)[(int)(63 * cast->relative_pos) * 3 + (int)(64 * 63 * (i - wall_top) / perceived) * 3]);
+			//env->data[i * W_WDTH + col] = *tmp;
+		//	env->data[i * W_WDTH + col] = ((int*)env->surtex[0]->pixels)[i * 64 + col];
+			tmp = *(uint32_t*)((env->surtex[1 + cast->wall + (cast->wall == 0 ? cast->step.x : cast->step.y)]->pixels) + ((3 * (int)(63 * cast->relative_pos)) + 64 * (3 * (63 * (i - wall_top) / perceived))));
+			//printf("Tmp : %hhd %hhd %hhd %hhd\n", (char)tmp[0], (char)tmp[1], (char)tmp[2], (char)tmp[3]);
+			env->data[i * W_WDTH + col] = tmp;//((tmp & 0xff000000) >> 24) | ((tmp & 0x00ff0000)>> 8) | ((tmp & 0x0000ff00) << 8) | 0xFF;
+			//if ((cast->wall == 0 ? cast->step.x : cast->step.y) == 1)
+				//env->data[i * W_WDTH + col] = (env->data[i * W_WDTH + col] >> 1) & 8355711;
+			//printf("Data : %hhd %hhd %hhd %hhd\n", (char)(env->data[(i * W_WDTH + col) * 4]), (char)(env->data[(i * W_WDTH + col) * 4 + 1]), (char)(env->data[(i * W_WDTH + col) * 4 + 2]), (char)(env->data[(i * W_WDTH + col) * 4 + 3]));
+//			printf("Pos in texture : %d, %d\n", (int)(64 * cast->relative_pos), (int)(64 * (i - wall_top) / perceived));
 		}
 		else
 			putpixel(col, i, -1);
@@ -120,7 +131,7 @@ int		raycasting(void *tmp)
 			if (env->map.map[cast.map_pos.x][cast.map_pos.y] == '#')
 			{
 				hit = 1;
-				calc_height(&cast, env, i);
+				calc_height(&cast, env, W_WDTH - i - 1);
 			}
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 23:26:50 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/26 19:16:40 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/27 23:02:07 by tle-gac-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # define W_HGHT 1440
 # define SPWN 120
 # define WALL 35
-# define THREAD_NBR 8
+# define THREAD_NBR 16
 # define TEXNBR 4
 
 # include "../libft/libft.h"

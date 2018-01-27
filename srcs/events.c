@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/22 14:03:53 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/26 17:16:16 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/28 00:06:19 by tle-gac-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,11 @@ void	rotate(int sense, t_env *env)
 {
 	float	tmp;
 
-	tmp = env->dir_vec.x * cos(0.05) - env->dir_vec.y * sin(0.05) * sense;
-	env->dir_vec.y = env->dir_vec.x * sin(0.05) * sense + env->dir_vec.y * cos(0.05);
+	tmp = env->dir_vec.x * cos(0.04) - env->dir_vec.y * sin(0.04) * sense;
+	env->dir_vec.y = env->dir_vec.x * sin(0.04) * sense + env->dir_vec.y * cos(0.04);
 	env->dir_vec.x = tmp;
-	tmp = env->cam_vec.x * cos(0.05) - env->cam_vec.y * sin(0.05) * sense;
-	env->cam_vec.y = env->cam_vec.x * sin(0.05) * sense + env->cam_vec.y * cos(0.05);
+	tmp = env->cam_vec.x * cos(0.04) - env->cam_vec.y * sin(0.04) * sense;
+	env->cam_vec.y = env->cam_vec.x * sin(0.04) * sense + env->cam_vec.y * cos(0.04);
 	env->cam_vec.x = tmp;
 }
 
@@ -62,13 +62,13 @@ void	movements(t_env *env)
 		move_dir(1, env);
 	if (env->state[SDL_SCANCODE_DOWN])
 		move_dir(-1, env);
-	if (env->state[SDL_SCANCODE_X] && env->state[SDL_SCANCODE_LEFT])
-		strafe(-1, env);
-	else if (env->state[SDL_SCANCODE_LEFT])
-		rotate(-1, env);
 	if (env->state[SDL_SCANCODE_X] && env->state[SDL_SCANCODE_RIGHT])
-		strafe(1, env);
+		strafe(-1, env);
 	else if (env->state[SDL_SCANCODE_RIGHT])
+		rotate(-1, env);
+	if (env->state[SDL_SCANCODE_X] && env->state[SDL_SCANCODE_LEFT])
+		strafe(1, env);
+	else if (env->state[SDL_SCANCODE_LEFT])
 		rotate(1, env);
 	draw_window(env);
 	//redraw

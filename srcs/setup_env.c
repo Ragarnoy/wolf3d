@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/16 16:25:06 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/26 17:28:31 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/27 23:43:28 by tle-gac-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 static void			setup_sdl(t_env *env)
 {
+	int		i;
+
+	i = 0;
 	SDL_Init(SDL_INIT_VIDEO);
 	env->win_p = SDL_CreateWindow("WOLF3D",
 		SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
@@ -24,6 +27,11 @@ static void			setup_sdl(t_env *env)
 	SDL_PumpEvents();
 	env->state = SDL_GetKeyboardState(NULL);
 	env->surtex[0] = SDL_LoadBMP("./tex/colorstone.bmp");
+//	printf("Bytes per pixel : %d\n", env->surtex[0]->format->BytesPerPixel);
+//	printf("R G B A: %#.8X %#.8X %#.8X %#.8X\n", env->surtex[0]->format->Rmask, env->surtex[0]->format->Gmask, env->surtex[0]->format->Bmask, env->surtex[0]->format->Amask);
+	//printf("Format : %s\n", SDL_GetPixelFormatName(env->surtex[0]->format->format));
+	//printf("Format ecran: %s\n", SDL_GetPixelFormatName(env->surf->format->format));
+	
 	env->surtex[1] = SDL_LoadBMP("./tex/greystone.bmp");
 	env->surtex[2] = SDL_LoadBMP("./tex/mossy.bmp");
 	env->surtex[3] = SDL_LoadBMP("./tex/wood.bmp");
@@ -56,11 +64,17 @@ t_env				*setup_env(t_map lul)
 	while (++i < env->map.hght)
 	{
 		while (++j < env->map.wdth)
+		{
 			if (env->map.map[i][j] == 'x')
 			{
-				env->ppos.x = j + 0.5;
-				env->ppos.y = i + 0.5;
+				//printf("Starting pos : %d %d\n", i, j);
+				//printf("Whoami : %c\n", env->map.map[i][j]);
+				env->ppos.x = i + 0.5;
+				env->ppos.y = j + 0.5;
 			}
+			printf("%c", env->map.map[i][j]);
+		}
+		printf("\n");
 		j = -1;
 	}
 	env->tsize = 1.0;

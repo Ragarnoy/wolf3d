@@ -6,11 +6,30 @@
 /*   By: tle-gac- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/24 17:29:16 by tle-gac-          #+#    #+#             */
-/*   Updated: 2018/01/24 20:16:57 by tle-gac-         ###   ########.fr       */
+/*   Updated: 2018/01/27 20:05:56 by tle-gac-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/wolf.h"
+
+void	homebrew_blit(t_env *env)
+{
+	int		*tmp;
+	int		i = 0;
+	int		j = 0;
+
+	while (i < 64)
+	{
+		while (j < 64)
+		{
+			tmp = (int *)&((char*)env->surtex[0]->pixels)[(3 * i) * 64 + (3 * j)];
+			env->data[i * W_WDTH + j] = *tmp;//255 << 24 | (tmp[1] << 16) | (tmp[2] << 8) | tmp[3];
+			j++;
+		}
+		i++;
+		j = 0;
+	}
+}
 
 void	draw_window(t_env *env)
 {
@@ -34,5 +53,7 @@ void	draw_window(t_env *env)
 	flags(env);
 	while (++i < THREAD_NBR)
 		SDL_WaitThread(threads[i], &IAmUselessAsShit);
+//	SDL_BlitSurface(env->surtex[0], NULL, env->surf, NULL);
+	homebrew_blit(env);
 	SDL_UpdateWindowSurface(env->win_p);
 }
