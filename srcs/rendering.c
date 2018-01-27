@@ -6,11 +6,30 @@
 /*   By: tle-gac- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/24 17:29:16 by tle-gac-          #+#    #+#             */
-/*   Updated: 2018/01/26 23:59:34 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/28 00:39:54 by tle-gac-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/wolf.h"
+
+/*void	homebrew_blit(t_env *env)
+{
+	int		*tmp;
+	int		i = 0;
+	int		j = 0;
+
+	while (i < 64)
+	{
+		while (j < 64)
+		{
+			tmp = (int *)&((char*)env->surtex[0]->pixels)[(3 * i) * 64 + (3 * j)];
+			env->data[i * W_WDTH + j] = *tmp;//255 << 24 | (tmp[1] << 16) | (tmp[2] << 8) | tmp[3];
+			j++;
+		}
+		i++;
+		j = 0;
+	}
+}*/
 
 void	draw_window(t_env *env)
 {
