@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 23:57:24 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/27 00:48:30 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/28 00:31:08 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ void		liberate(t_env *env)
 	i = -1;
 	while (++i < TEXNBR)
 		SDL_FreeSurface(env->surtex[i]);
-	SDL_FreeSurface(env->minimap.surf);
+	if (env->minimap.init)
+		SDL_FreeSurface(env->minimap.surf);
 }
 
 int			exit_prog(int error)
@@ -35,6 +36,7 @@ int			exit_prog(int error)
 	else if (error == 4)
 		ft_putendl("wolf3d : invalid map (liar)");
 	SDL_QuitSubSystem(SDL_INIT_VIDEO);
+	TTF_Quit();
 	SDL_Quit();
 	exit(64);
 }
@@ -47,18 +49,10 @@ static void	event_loop(t_env *env)
 	running = 1;
 	SDL_PollEvent(&event);
 	env->event = event;
+	draw_window(env);
 	SDL_UpdateWindowSurface(env->win_p);
-	SDL_UnlockSurface(env->surf);
-	TTF_Font *justice = TTF_OpenFont("./tex/justicegrad.ttf", 500);
-	SDL_Color color={250,0,0,0};
-	SDL_Surface *text_surface = TTF_RenderText_Blended(justice, "WOLF3D", color);
 	while (running)
 	{
-		while(1)
-		{
-			SDL_BlitSurface(text_surface,NULL,env->surf,NULL);
-			SDL_UpdateWindowSurface(env->win_p);
-		}
 		while (SDL_PollEvent(&event))
 		{
 			if (event.type == SDL_KEYDOWN)
@@ -80,9 +74,8 @@ int			main(const int argc, const char **argv)
 	if (!(map = parser(open(argv[1], O_RDONLY))))
 		return(exit_prog(2));
 	env = setup_env(*map);
-	draw_window(env);
-	TTF_Init();
-	event_loop(env);
+	if (menu(env))
+		event_loop(env);
 	liberate(env);
 	SDL_QuitSubSystem(SDL_INIT_VIDEO);
 	SDL_Quit();

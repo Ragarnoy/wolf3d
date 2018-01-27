@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/16 16:25:06 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/26 17:28:31 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/27 17:27:10 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static void			setup_sdl(t_env *env)
 {
 	SDL_Init(SDL_INIT_VIDEO);
+	TTF_Init();
 	env->win_p = SDL_CreateWindow("WOLF3D",
 		SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
 		W_WDTH, W_HGHT,

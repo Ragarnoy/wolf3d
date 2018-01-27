@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 23:26:50 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/27 00:08:03 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/28 00:17:44 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # define WALL 35
 # define THREAD_NBR 8
 # define TEXNBR 4
+# define FNTNBR 2
 
 # include "../libft/libft.h"
 # include <stdio.h>
@@ -30,6 +31,13 @@
 # include <SDL.h>
 # include <SDL_thread.h>
 # include "SDL_ttf.h"
+
+typedef struct			s_fnt
+{
+	TTF_Font			*fnt[FNTNBR];
+	SDL_Surface			*surfnt[FNTNBR];
+	SDL_Rect			txtr;
+}						t_fnt;
 
 typedef struct			s_vec
 {
@@ -88,12 +96,12 @@ typedef struct			s_env
 	SDL_Window			*win_p;
 	SDL_Event			event;
 	SDL_Surface			*surf;
+	SDL_Surface			*surtex[TEXNBR];
 	t_vec				ppos;
 	t_vec				dir_vec;
 	t_vec				cam_vec;
 	t_map				map;
 	t_minimap			minimap;
-	SDL_Surface			*surtex[TEXNBR];
 	t_flags				flg;
 }						t_env;
 
@@ -107,5 +115,6 @@ int						raycasting(void *tmp);
 void					flags(t_env *env, SDL_Event event);
 void					minimap(t_env *env);
 void					draw_window(t_env *env);
+int						menu(t_env *env);
 
 #endif

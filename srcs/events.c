@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/22 14:03:53 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/26 22:58:45 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/28 00:25:13 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ void	movements(t_env *env)
 	else if (env->state[SDL_SCANCODE_RIGHT])
 		rotate(1, env);
 	draw_window(env);
-	//redraw
 }
 
 void	flags(t_env *env, SDL_Event event)

@@ -15,6 +15,7 @@ SRC_NAME = main.c \
 		setup_env.c \
 		minimap.c \
 		rendering.c \
+		menu.c \
 
 OBJ_NAME = $(SRC_NAME:c=o)
 SRC = $(addprefix $(SRC_PATH)/,$(SRC_NAME))
