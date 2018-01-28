@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 23:57:24 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/28 17:30:52 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/28 23:47:47 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void		liberate(t_env *env)
 		SDL_FreeSurface(env->surtex[i]);
 	if (env->minimap.init)
 		SDL_FreeSurface(env->minimap.surf);
+	SDL_DestroyWindow(env->win_p);
 }
 
 int			exit_prog(int error)

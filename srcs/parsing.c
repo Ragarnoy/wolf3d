@@ -6,17 +6,11 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/16 19:06:22 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/28 21:03:32 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/29 00:01:48 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/wolf.h"
-
-static void	clean_exit(int error, char **s)
-{
-	free(s);
-	exit_prog(error);
-}
 
 static int	checkvalidity(char *s, t_map map, int cur)
 {
@@ -49,6 +43,8 @@ static int	fillmap(t_map *map, int fd)
 	{
 		if (!checkvalidity(tmp, *map, i))
 			return (0);
+		if (error < 0)
+			return (0);
 		map->map[i][0] = '#';
 		ft_strcpy(map->map[i] + 1, tmp);
 		map->map[i][map->wdth + 1] = '#';
@@ -69,14 +65,14 @@ t_map		*parser(int fd)
 	unsigned int	i;
 
 	map = (t_map*)malloc(sizeof(t_map));
-	if (!(get_next_line(fd, &str) && (map->wdth = ft_atoi(str))))
-		exit_prog(1);
-	free(str);
-	if (!(get_next_line(fd, &str) && (map->hght = ft_atoi(str))))
-		clean_exit(1, &str);
-	ft_strdel(&str);
-	if (map->wdth == 0 || map->wdth > 50 || map->hght == 0 || map->wdth > 50)
+	if (((get_next_line(fd, &str) <= 0) || (map->wdth = ft_atoi(str))))
 		exit_prog(2);
+	free(str);
+	if (((get_next_line(fd, &str) <= 0) || (map->hght = ft_atoi(str))))
+		exit_prog(2);
+	ft_strdel(&str);
+	if (map->wdth <= 0 || map->wdth > 50 || map->hght <= 0 || map->wdth > 50)
+		exit_prog(4);
 	if (!(map->map = ((char**)malloc(sizeof(char*) * (map->hght + 2)))))
 		exit_prog(1);
 	i = -1;
@@ -85,6 +81,6 @@ t_map		*parser(int fd)
 	ft_memset(map->map[0], '#', map->wdth + 2);
 	ft_memset(map->map[map->hght + 1], '#', map->wdth + 2);
 	if (!fillmap(map, fd))
-		clean_exit(3, map->map);
+		exit_prog(4);
 	return (map);
 }

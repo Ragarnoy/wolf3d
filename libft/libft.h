@@ -6,14 +6,14 @@
 /*   By: tlernoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/26 15:40:27 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/14 02:43:34 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/28 23:38:49 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_LIBFT_H
 # define FT_LIBFT_H
 # define BUFF_SIZE 10
-# define MAX_FD 4000
+# define MAX_FD 400
 # define MAX_INT 2147483647
 
 # include <string.h>
