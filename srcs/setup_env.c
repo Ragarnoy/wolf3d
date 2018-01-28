@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/16 16:25:06 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/28 00:39:03 by tle-gac-         ###   ########.fr       */
+/*   Updated: 2018/01/28 19:20:07 by tle-gac-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@ t_env				*setup_env(t_map lul)
 			{
 				//printf("Starting pos : %d %d\n", i, j);
 				//printf("Whoami : %c\n", env->map.map[i][j]);
-				env->ppos.x = i + 0.5;
-				env->ppos.y = j + 0.5;
+				env->ppos[0] = i + 0.5;
+				env->ppos[1] = j + 0.5;
 			}
 			printf("%c", env->map.map[i][j]);
 		}
@@ -79,10 +79,10 @@ t_env				*setup_env(t_map lul)
 		j = -1;
 	}
 	env->tsize = 1.0;
-	env->dir_vec.x = 0.0;
-	env->dir_vec.y = -0.8;
-	env->cam_vec.x = 0.66;
-	env->cam_vec.y = 0.0;
+	env->dir_vec[0] = 0.0;
+	env->dir_vec[1] = -0.8;
+	env->cam_vec[0] = 0.66;
+	env->cam_vec[1] = 0.0;
 	env->minimap.init = 0;
 	env->flg.minimap = 0;
 	return (env);
