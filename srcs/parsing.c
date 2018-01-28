@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/16 19:06:22 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/26 17:32:31 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/28 17:25:53 by tle-gac-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 static void	clean_exit(int error, char **s)
 {
-	free(s);
 	int i;
 
 	i = -1;
 	while (s[++i])
 	{
-		free(s + i);
+		free(*(s + i));
 	}
+	free(s);
 	exit_prog(error);
 }
 
@@ -33,13 +33,13 @@ static int	checkvalidity(char *s, t_map map, int cur)
 	i = -1;
 	while (s[++i])
 	{
-		if (i > map.wdth + 1)
-			return (0);
 		if (s[i] == 'x')
 			flag += 1;
 		if (s[i] != '#' && s[i] != ' ' && s[i] != 'x')
 			return (0);
 	}
+	if (i != map.wdth)
+		return (0);
 	if ((unsigned int)cur == map.hght && flag != 1)
 		return (0);
 	return (1);
