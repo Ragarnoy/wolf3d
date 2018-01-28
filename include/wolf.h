@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 23:26:50 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/28 18:57:49 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/28 21:05:17 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # define W_HGHT 1440
 # define SPWN 120
 # define WALL 35
-# define THREAD_NBR 26
+# define THREAD_NBR 32
 # define TEXNBR 4
 # define FNTNBR 2
 
@@ -38,6 +38,13 @@ typedef struct			s_fnt
 	SDL_Surface			*surfnt[FNTNBR];
 	SDL_Rect			txtr;
 }						t_fnt;
+
+typedef struct			s_wall
+{
+	int					top;
+	int					foot;
+	int					perceived;
+}						t_wall;
 
 typedef struct			s_vec
 {
@@ -65,11 +72,11 @@ typedef struct			s_pnt
 
 typedef struct			s_raycast
 {
-	t_vec				ntile;
-	t_vec				ray;
-	t_pnt				step;
-	t_pnt				map_pos;
-	t_vec				dif;
+	double				ntile[2];
+	double				ray[2];
+	int					step[2];
+	int					map_pos[2];
+	double				dif[2];
 	float				relative_pos;
 	float				dist;
 	short				wall;
@@ -97,9 +104,9 @@ typedef struct			s_env
 	SDL_Event			event;
 	SDL_Surface			*surf;
 	SDL_Surface			*surtex[TEXNBR];
-	t_vec				ppos;
-	t_vec				dir_vec;
-	t_vec				cam_vec;
+	double				ppos[2];
+	double				dir_vec[2];
+	double				cam_vec[2];
 	t_map				map;
 	t_minimap			minimap;
 	t_flags				flg;

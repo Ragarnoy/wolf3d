@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/16 16:25:06 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/28 20:45:30 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/28 21:02:48 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,18 +47,16 @@ static void			setup_raycast(t_env *env)
 		{
 			if (env->map.map[i][j] == 'x')
 			{
-				env->ppos.x = i + 0.5;
-				env->ppos.y = j + 0.5;
+				env->ppos[0] = i + 0.5;
+				env->ppos[1] = j + 0.5;
 			}
-			printf("%c", env->map.map[i][j]);
 		}
-		printf("\n");
 	}
 	env->tsize = 1.0;
-	env->dir_vec.x = 0.0;
-	env->dir_vec.y = -0.8;
-	env->cam_vec.x = 0.66;
-	env->cam_vec.y = 0.0;
+	env->dir_vec[0] = 0.0;
+	env->dir_vec[1] = -0.8;
+	env->cam_vec[0] = 0.66;
+	env->cam_vec[1] = 0.0;
 }
 
 t_env				*get_env(void)
@@ -74,7 +72,7 @@ t_env				*get_env(void)
 
 t_env				*setup_env(t_map lul)
 {
-	t_env				*env;
+	t_env	*env;
 
 	env = get_env();
 	setup_sdl(env);
