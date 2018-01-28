@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/22 15:43:02 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/28 17:42:45 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/28 20:47:00 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,26 @@
 
 static void	sqr(t_env *env, int c, INTL x, INTL y)
 {
-	unsigned int	i;
-	unsigned int	j;
-	unsigned int	scale;
+	t_pnt			pt;
+	int				scl;
 	int				*data;
 
-	i = 0;
+	pt.y = 0;
 	data = (int*)env->minimap.surf->pixels;
-	scale = env->minimap.dst.w / (env->map.hght);
-	while (i < scale)
+	if (env->map.hght > env->map.wdth)
+		scl = env->minimap.dst.w / (env->map.hght);
+	else
+		scl = env->minimap.dst.w / (env->map.wdth);
+	while (pt.y < scl)
 	{
-		j = 0;
-		while (j < scale)
+		pt.x = 0;
+		while (pt.x < scl)
 		{
-			data[(x * scale + i) + ((y * scale + j) * env->minimap.dst.w)] = c;
-			j++;
+			data[(x * scl + pt.x) + ((y * scl + pt.y)
+					* env->minimap.dst.w)] = c;
+			pt.x++;
 		}
-		i++;
+		pt.y++;
 	}
 }
 
@@ -59,10 +62,16 @@ static void	init_minimap(t_env *env)
 {
 	env->minimap.surf = SDL_CreateRGBSurfaceWithFormat(0, W_WDTH / 8,
 				W_WDTH / 8, 32, env->surf->format->format);
-	env->minimap.dst.x = W_WDTH - (W_WDTH / 8) + 4;
 	env->minimap.dst.y = 0;
+	env->minimap.dst.x = W_WDTH - (W_WDTH / 8);
 	env->minimap.dst.w = (W_WDTH / 8);
 	env->minimap.dst.h = (W_WDTH / 8);
+	if (env->map.hght > env->map.wdth)
+		env->minimap.dst.x += W_WDTH / 8 - ((env->minimap.dst.w /
+											(env->map.hght)) * env->map.wdth);
+	else
+		env->minimap.dst.x += (W_WDTH / 8) - ((env->minimap.dst.w /
+											(env->map.wdth)) * env->map.wdth);
 	draw(env);
 	env->minimap.init = 1;
 }
@@ -71,6 +80,6 @@ void		minimap(t_env *env)
 {
 	if (env->minimap.init == 0)
 		init_minimap(env);
-	SDL_BlitScaled(env->minimap.surf, 0, env->surf, &env->minimap.dst);
+	SDL_BlitSurface(env->minimap.surf, 0, env->surf, &env->minimap.dst);
 	SDL_UpdateWindowSurface(env->win_p);
 }

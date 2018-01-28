@@ -2,7 +2,7 @@ NAME = wolf3d
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror `sdl2-config --cflags`
 CPPFLAGS = -Iinclude
-LDLIBS = -lft `sdl2-config --libs` -lSDL2_ttf
+LDLIBS = -lft `sdl2-config --libs` -lSDL2_ttf -fsanitize=address
 LDFLAGS = -Llibft -lpthread
 INC_PATH = include/
 OBJ_PATH = obj

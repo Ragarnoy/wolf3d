@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 23:26:50 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/28 00:40:46 by tle-gac-         ###   ########.fr       */
+/*   Updated: 2018/01/28 18:57:49 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # define W_HGHT 1440
 # define SPWN 120
 # define WALL 35
-# define THREAD_NBR 16
+# define THREAD_NBR 26
 # define TEXNBR 4
 # define FNTNBR 2
 

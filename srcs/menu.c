@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/27 17:22:24 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/28 00:30:40 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/28 20:37:18 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ static void	fade(int y)
 		line(y, shift);
 		shift.l += dif / val;
 		y++;
+		shift.h += 2;
 	}
 	while (--i > 0)
 	{
@@ -70,11 +71,10 @@ static int	event_loop(t_env *env, t_fnt font)
 			else if (event.type == SDL_KEYDOWN)
 				return (1);
 		}
-		fade(y);
-		y += 10;
+		y += 6;
 		SDL_BlitSurface(font.surfnt[0], NULL, env->surf, NULL);
-		if (y < W_HGHT / 2)
-			SDL_BlitSurface(font.surfnt[1], NULL, env->surf, &font.txtr);
+		SDL_BlitSurface(font.surfnt[1], NULL, env->surf, &font.txtr);
+		fade(y);
 		SDL_UpdateWindowSurface(env->win_p);
 	}
 	return (0);
@@ -90,19 +90,11 @@ int			menu(t_env *env)
 	fonts.fnt[1] = TTF_OpenFont("./tex/D3Digitalism.ttf", 200);
 	fonts.surfnt[0] = TTF_RenderText_Blended(fonts.fnt[0], "WOLF3D", clr);
 	fonts.surfnt[1] = TTF_RenderText_Blended(fonts.fnt[1], "PRESS START", clr);
-	fonts.txtr = (SDL_Rect){W_WDTH / 8, (W_HGHT / 8) * 7, 0, 0};
+	fonts.txtr = (SDL_Rect){W_WDTH / 8, (W_HGHT / 8) * 6, 0, 0};
 	TTF_CloseFont(fonts.fnt[0]);
 	TTF_CloseFont(fonts.fnt[1]);
 	if (!event_loop(env, fonts))
-	{
-		SDL_FreeSurface(fonts.surfnt[0]);
-		SDL_FreeSurface(fonts.surfnt[1]);
 		return (0);
-	}
 	else
-	{
-		SDL_FreeSurface(fonts.surfnt[0]);
-		SDL_FreeSurface(fonts.surfnt[1]);
 		return (1);
-	}
 }

@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/16 19:06:22 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/28 17:55:29 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/28 19:16:32 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,6 @@
 
 static void	clean_exit(int error, char **s)
 {
-	int i;
-
-	i = -1;
-	while (s[++i])
-	{
-		free(*(s + i));
-	}
 	free(s);
 	exit_prog(error);
 }

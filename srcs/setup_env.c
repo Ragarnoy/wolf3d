@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/16 16:25:06 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/28 17:46:50 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/28 20:45:30 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,13 @@ static void			setup_sdl(t_env *env)
 		SDL_WINDOW_FULLSCREEN_DESKTOP);
 	env->surf = SDL_GetWindowSurface(env->win_p);
 	env->data = (int*)env->surf->pixels;
+	ft_bzero(env->data, (W_WDTH * W_HGHT) * 4);
 	SDL_PumpEvents();
 	env->state = SDL_GetKeyboardState(NULL);
 	env->surtex[0] = SDL_LoadBMP("./tex/colorstone.bmp");
 	env->surtex[1] = SDL_LoadBMP("./tex/greystone.bmp");
-	env->surtex[2] = SDL_LoadBMP("./tex/mossy.bmp");
-	env->surtex[3] = SDL_LoadBMP("./tex/wood.bmp");
+	env->surtex[3] = SDL_LoadBMP("./tex/mossy.bmp");
+	env->surtex[2] = SDL_LoadBMP("./tex/wood.bmp");
 }
 
 static void			setup_raycast(t_env *env)
@@ -66,7 +67,7 @@ t_env				*get_env(void)
 
 	if (env)
 		return (env);
-	if (!(env = malloc(sizeof(t_env))))
+	if (!(env = ft_memalloc(sizeof(t_env))))
 		exit_prog(0);
 	return (env);
 }
