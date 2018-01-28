@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/16 16:25:06 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/28 00:39:03 by tle-gac-         ###   ########.fr       */
+/*   Updated: 2018/01/28 17:46:50 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,36 @@ static void			setup_sdl(t_env *env)
 	SDL_PumpEvents();
 	env->state = SDL_GetKeyboardState(NULL);
 	env->surtex[0] = SDL_LoadBMP("./tex/colorstone.bmp");
-//	printf("Bytes per pixel : %d\n", env->surtex[0]->format->BytesPerPixel);
-//	printf("R G B A: %#.8X %#.8X %#.8X %#.8X\n", env->surtex[0]->format->Rmask, env->surtex[0]->format->Gmask, env->surtex[0]->format->Bmask, env->surtex[0]->format->Amask);
-	//printf("Format : %s\n", SDL_GetPixelFormatName(env->surtex[0]->format->format));
-	//printf("Format ecran: %s\n", SDL_GetPixelFormatName(env->surf->format->format));
-	
 	env->surtex[1] = SDL_LoadBMP("./tex/greystone.bmp");
 	env->surtex[2] = SDL_LoadBMP("./tex/mossy.bmp");
 	env->surtex[3] = SDL_LoadBMP("./tex/wood.bmp");
+}
+
+static void			setup_raycast(t_env *env)
+{
+	unsigned int		i;
+	unsigned int		j;
+
+	i = -1;
+	while (++i < env->map.hght)
+	{
+		j = -1;
+		while (++j < env->map.wdth)
+		{
+			if (env->map.map[i][j] == 'x')
+			{
+				env->ppos.x = i + 0.5;
+				env->ppos.y = j + 0.5;
+			}
+			printf("%c", env->map.map[i][j]);
+		}
+		printf("\n");
+	}
+	env->tsize = 1.0;
+	env->dir_vec.x = 0.0;
+	env->dir_vec.y = -0.8;
+	env->cam_vec.x = 0.66;
+	env->cam_vec.y = 0.0;
 }
 
 t_env				*get_env(void)
@@ -52,37 +74,13 @@ t_env				*get_env(void)
 t_env				*setup_env(t_map lul)
 {
 	t_env				*env;
-	unsigned int		i;
-	unsigned int		j;
 
-	i = -1;
-	j = -1;
 	env = get_env();
 	setup_sdl(env);
 	env->map = lul;
 	env->map.wdth += 2;
 	env->map.hght += 2;
-	while (++i < env->map.hght)
-	{
-		while (++j < env->map.wdth)
-		{
-			if (env->map.map[i][j] == 'x')
-			{
-				//printf("Starting pos : %d %d\n", i, j);
-				//printf("Whoami : %c\n", env->map.map[i][j]);
-				env->ppos.x = i + 0.5;
-				env->ppos.y = j + 0.5;
-			}
-			printf("%c", env->map.map[i][j]);
-		}
-		printf("\n");
-		j = -1;
-	}
-	env->tsize = 1.0;
-	env->dir_vec.x = 0.0;
-	env->dir_vec.y = -0.8;
-	env->cam_vec.x = 0.66;
-	env->cam_vec.y = 0.0;
+	setup_raycast(env);
 	env->minimap.init = 0;
 	env->flg.minimap = 0;
 	return (env);

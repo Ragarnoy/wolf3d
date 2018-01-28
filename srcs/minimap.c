@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/22 15:43:02 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/26 18:58:40 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/28 17:42:45 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,12 @@
 
 static void	sqr(t_env *env, int c, INTL x, INTL y)
 {
-	unsigned int i = 0;
-	unsigned int j = 0;
-	unsigned int scale;
-	int			*data;
+	unsigned int	i;
+	unsigned int	j;
+	unsigned int	scale;
+	int				*data;
 
+	i = 0;
 	data = (int*)env->minimap.surf->pixels;
 	scale = env->minimap.dst.w / (env->map.hght);
 	while (i < scale)
@@ -56,7 +57,8 @@ static void	draw(t_env *env)
 
 static void	init_minimap(t_env *env)
 {
-	env->minimap.surf = SDL_CreateRGBSurfaceWithFormat(0, W_WDTH / 8, W_WDTH / 8, 32, env->surf->format->format);
+	env->minimap.surf = SDL_CreateRGBSurfaceWithFormat(0, W_WDTH / 8,
+				W_WDTH / 8, 32, env->surf->format->format);
 	env->minimap.dst.x = W_WDTH - (W_WDTH / 8) + 4;
 	env->minimap.dst.y = 0;
 	env->minimap.dst.w = (W_WDTH / 8);
@@ -65,7 +67,7 @@ static void	init_minimap(t_env *env)
 	env->minimap.init = 1;
 }
 
-void	minimap(t_env *env)
+void		minimap(t_env *env)
 {
 	if (env->minimap.init == 0)
 		init_minimap(env);

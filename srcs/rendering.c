@@ -6,7 +6,7 @@
 /*   By: tle-gac- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/24 17:29:16 by tle-gac-          #+#    #+#             */
-/*   Updated: 2018/01/28 00:39:54 by tle-gac-         ###   ########.fr       */
+/*   Updated: 2018/01/28 17:43:38 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	draw_window(t_env *env)
 	t_win_part		slices[THREAD_NBR];
 	SDL_Thread		*threads[THREAD_NBR];
 	int				i;
-	int				IAmUselessAsShit;
+	int				status;
 
 	i = -1;
 	while (++i < THREAD_NBR)
@@ -51,7 +51,7 @@ void	draw_window(t_env *env)
 		threads[i] = SDL_CreateThread(raycasting, "FredTheThread", &slices[i]);
 	i = -1;
 	while (++i < THREAD_NBR)
-		SDL_WaitThread(threads[i], &IAmUselessAsShit);
+		SDL_WaitThread(threads[i], &status);
 	if (env->flg.minimap)
 		minimap(env);
 	SDL_UpdateWindowSurface(env->win_p);

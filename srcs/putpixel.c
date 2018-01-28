@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/16 18:07:37 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/27 23:53:43 by tle-gac-         ###   ########.fr       */
+/*   Updated: 2018/01/28 17:40:15 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 void	putpixel(int x, int y, float hue)
 {
 	t_hsl hsl;
+	t_env *env;
 
+	env = get_env();
 	hsl.h = hue;
 	hsl.s = 1.0;
 	if (hue == -1.0)
@@ -24,10 +26,10 @@ void	putpixel(int x, int y, float hue)
 		hsl.l = 1;
 	else
 		hsl.l = 0.5;
-	get_env()->data[y * W_WDTH + x] = (ft_hsl_to_rgb(hsl) & 0x00FFFFFF) | 0xff000000;
+	env->data[y * W_WDTH + x] = (ft_hsl_to_rgb(hsl) & 0x00FFFFFF) | 0xff000000;
 }
 
-void	putpixel_opt(t_pnt pt, float hue)
+void	putpixel_opt(int x, int y, float hue)
 {
 	t_hsl hsl;
 	t_env *env;
@@ -38,6 +40,6 @@ void	putpixel_opt(t_pnt pt, float hue)
 	hsl.l = 0.5;
 	SDL_SetSurfaceRLE(env->surf, 1);
 	SDL_LockSurface(env->surf);
-	env->data[pt.y * W_WDTH + pt.x] = (ft_hsl_to_rgb(hsl) & 0x00FFFFFF) | 0xff000000;
+	env->data[y * W_WDTH + x] = (ft_hsl_to_rgb(hsl) & 0x00FFFFFF) | 0xff000000;
 	SDL_UnlockSurface(env->surf);
 }

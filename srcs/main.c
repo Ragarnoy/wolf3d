@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 23:57:24 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/28 00:31:08 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/28 17:30:52 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int			main(const int argc, const char **argv)
 	if (argc != 2 || !argv[1])
 		return (exit_prog(0));
 	if (!(map = parser(open(argv[1], O_RDONLY))))
-		return(exit_prog(2));
+		return (exit_prog(2));
 	env = setup_env(*map);
 	if (menu(env))
 		event_loop(env);
