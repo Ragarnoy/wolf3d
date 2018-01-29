@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/16 19:06:22 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/29 00:01:48 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/29 12:49:50 by tle-gac-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,10 @@ t_map		*parser(int fd)
 	unsigned int	i;
 
 	map = (t_map*)malloc(sizeof(t_map));
-	if (((get_next_line(fd, &str) <= 0) || (map->wdth = ft_atoi(str))))
+	if (((get_next_line(fd, &str) <= 0) || !(map->wdth = ft_atoi(str))))
 		exit_prog(2);
 	free(str);
-	if (((get_next_line(fd, &str) <= 0) || (map->hght = ft_atoi(str))))
+	if (((get_next_line(fd, &str) <= 0) || !(map->hght = ft_atoi(str))))
 		exit_prog(2);
 	ft_strdel(&str);
 	if (map->wdth <= 0 || map->wdth > 50 || map->hght <= 0 || map->wdth > 50)
