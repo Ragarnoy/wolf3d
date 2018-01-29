@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/16 16:25:06 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/29 20:31:30 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/29 21:42:56 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,20 @@
 
 static void			setup_sdl(t_env *env)
 {
+	int		i;
+
+	i = -1;
 	SDL_Init(SDL_INIT_VIDEO);
 	TTF_Init();
+	env->surtex[0] = SDL_LoadBMP("./tex/colorstone.bmp");
+	env->surtex[1] = SDL_LoadBMP("./tex/greystone.bmp");
+	env->surtex[2] = SDL_LoadBMP("./tex/stone.bmp");
+	env->surtex[3] = SDL_LoadBMP("./tex/mossy.bmp");
+	while (++i < TEXNBR)
+	{
+		if (!env->surtex[i])
+			exit_prog(5);
+	}
 	env->win_p = SDL_CreateWindow("WOLF3D",
 		SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
 		W_WDTH, W_HGHT,
@@ -24,10 +36,6 @@ static void			setup_sdl(t_env *env)
 	env->data = (Uint32*)env->surf->pixels;
 	ft_bzero(env->data, (W_WDTH * W_HGHT) * 4);
 	env->state = SDL_GetKeyboardState(NULL);
-	env->surtex[0] = SDL_LoadBMP("./tex/colorstone.bmp");
-	env->surtex[1] = SDL_LoadBMP("./tex/greystone.bmp");
-	env->surtex[3] = SDL_LoadBMP("./tex/mossy.bmp");
-	env->surtex[2] = SDL_LoadBMP("./tex/stone.bmp");
 }
 
 static void			setup_raycast(t_env *env)
