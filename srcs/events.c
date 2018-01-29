@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/22 14:03:53 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/29 19:49:58 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/29 20:09:08 by tle-gac-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,4 +88,6 @@ void	flags(t_env *env, SDL_Event event)
 {
 	if (event.key.keysym.scancode == SDL_SCANCODE_M)
 		env->flg.minimap = !env->flg.minimap;
+	if (event.key.keysym.scancode == SDL_SCANCODE_D)
+		env->flg.darkness = !env->flg.darkness;
 }

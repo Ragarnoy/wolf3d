@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 23:26:50 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/29 18:37:48 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/29 20:08:13 by tle-gac-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ typedef struct			s_map
 typedef struct			s_flags
 {
 	INTL				minimap;
+	INTL				darkness;
 }						t_flags;
 
 typedef struct			s_pnt

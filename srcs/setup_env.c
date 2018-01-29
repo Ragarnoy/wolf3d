@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/16 16:25:06 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/29 19:46:54 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/29 20:09:22 by tle-gac-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ static void			setup_raycast(t_env *env)
 	env->dir_vec[1] = -0.8;
 	env->cam_vec[0] = 0.66;
 	env->cam_vec[1] = 0.0;
+	env->flg.darkness = 1;
 }
 
 t_env				*get_env(void)
