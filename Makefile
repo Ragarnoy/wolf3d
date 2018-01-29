@@ -3,7 +3,7 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror `sdl2-config --cflags`
 CPPFLAGS = -Iinclude
 LDLIBS = -lft `sdl2-config --libs` -lSDL2_ttf
-LDFLAGS = -Llibft -lpthread -fsanitize=address
+LDFLAGS = -Llibft
 INC_PATH = include/
 OBJ_PATH = obj
 SRC_PATH = srcs

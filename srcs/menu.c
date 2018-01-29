@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/27 17:22:24 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/28 20:37:18 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/29 19:51:34 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static void	fade(int y)
 
 static int	event_loop(t_env *env, t_fnt font)
 {
-	int			y;
+	Uint32		y;
 	SDL_Event	event;
 
 	y = -1;
@@ -84,6 +84,7 @@ int			menu(t_env *env)
 {
 	t_fnt		fonts;
 	SDL_Color	clr;
+	int			ret;
 
 	clr = (SDL_Color){0, 0, 0, 0};
 	fonts.fnt[0] = TTF_OpenFont("./tex/justicegrad.ttf", 510);
@@ -91,9 +92,12 @@ int			menu(t_env *env)
 	fonts.surfnt[0] = TTF_RenderText_Blended(fonts.fnt[0], "WOLF3D", clr);
 	fonts.surfnt[1] = TTF_RenderText_Blended(fonts.fnt[1], "PRESS START", clr);
 	fonts.txtr = (SDL_Rect){W_WDTH / 8, (W_HGHT / 8) * 6, 0, 0};
+	ret = event_loop(env, fonts);
 	TTF_CloseFont(fonts.fnt[0]);
 	TTF_CloseFont(fonts.fnt[1]);
-	if (!event_loop(env, fonts))
+	SDL_FreeSurface(fonts.surfnt[0]);
+	SDL_FreeSurface(fonts.surfnt[1]);
+	if (!ret)
 		return (0);
 	else
 		return (1);

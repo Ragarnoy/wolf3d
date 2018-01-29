@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/22 14:03:53 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/29 17:58:08 by tle-gac-         ###   ########.fr       */
+/*   Updated: 2018/01/29 19:49:58 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,6 @@ void	rotate(int sense, t_env *env)
 
 void	movements(t_env *env)
 {
-	static uint32_t	lasttick = 0;
-
 	if (env->state[SDL_SCANCODE_UP])
 		move_dir(1, env);
 	if (env->state[SDL_SCANCODE_DOWN])
@@ -80,9 +78,9 @@ void	movements(t_env *env)
 		strafe(1, env);
 	else if (env->state[SDL_SCANCODE_LEFT])
 		rotate(1, env);
-	while (lasttick + (1000 / 50) > SDL_GetTicks())
+	while (env->lasttick + (1000 / 50) > SDL_GetTicks())
 		;
-	lasttick = SDL_GetTicks();
+	env->lasttick = SDL_GetTicks();
 	draw_window(env);
 }
 

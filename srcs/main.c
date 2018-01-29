@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 23:57:24 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/29 16:39:34 by tle-gac-         ###   ########.fr       */
+/*   Updated: 2018/01/29 18:23:20 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,14 @@ int			exit_prog(int error)
 		ft_putendl("wolf3d : parsing error");
 	else if (error == 4)
 		ft_putendl("wolf3d : invalid map (liar)");
-	SDL_QuitSubSystem(SDL_INIT_VIDEO);
-	TTF_Quit();
-	SDL_Quit();
+	else if ((error = 42) && (SDL_WasInit(SDL_INIT_VIDEO)))
+	{
+		liberate(get_env());
+		TTF_Quit();
+		SDL_QuitSubSystem(SDL_INIT_VIDEO | SDL_INIT_EVENTS);
+		SDL_Quit();
+		return (0);
+	}
 	exit(64);
 }
 
@@ -48,8 +53,6 @@ static void	event_loop(t_env *env)
 	SDL_Event	event;
 
 	running = 1;
-	SDL_PollEvent(&event);
-	env->event = event;
 	SDL_SetSurfaceRLE(env->surf, 1);
 	draw_window(env);
 	SDL_UpdateWindowSurface(env->win_p);
@@ -78,8 +81,6 @@ int			main(const int argc, const char **argv)
 	env = setup_env(*map);
 	if (menu(env))
 		event_loop(env);
-	liberate(env);
-	SDL_QuitSubSystem(SDL_INIT_VIDEO);
-	SDL_Quit();
+	exit_prog(42);
 	return (0);
 }

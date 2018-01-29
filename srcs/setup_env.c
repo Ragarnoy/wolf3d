@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/16 16:25:06 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/29 17:23:00 by tle-gac-         ###   ########.fr       */
+/*   Updated: 2018/01/29 19:46:54 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 static void			setup_sdl(t_env *env)
 {
-	int		i;
-
-	i = 0;
 	SDL_Init(SDL_INIT_VIDEO);
 	TTF_Init();
 	env->win_p = SDL_CreateWindow("WOLF3D",
@@ -24,9 +21,8 @@ static void			setup_sdl(t_env *env)
 		W_WDTH, W_HGHT,
 		SDL_WINDOW_FULLSCREEN_DESKTOP | SDL_WINDOW_OPENGL);
 	env->surf = SDL_GetWindowSurface(env->win_p);
-	env->data = (int*)env->surf->pixels;
+	env->data = (Uint32*)env->surf->pixels;
 	ft_bzero(env->data, (W_WDTH * W_HGHT) * 4);
-	SDL_PumpEvents();
 	env->state = SDL_GetKeyboardState(NULL);
 	env->surtex[0] = SDL_LoadBMP("./tex/colorstone.bmp");
 	env->surtex[1] = SDL_LoadBMP("./tex/greystone.bmp");
@@ -82,5 +78,6 @@ t_env				*setup_env(t_map lul)
 	setup_raycast(env);
 	env->minimap.init = 0;
 	env->flg.minimap = 0;
+	env->lasttick = 0;
 	return (env);
 }

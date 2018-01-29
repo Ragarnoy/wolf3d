@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 23:26:50 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/28 21:05:17 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/29 18:37:48 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,11 +97,11 @@ typedef struct			s_win_part
 
 typedef struct			s_env
 {
-	int					*data;
+	Uint32				*data;
+	Uint32				lasttick;
 	int					tsize;
 	const Uint8			*state;
 	SDL_Window			*win_p;
-	SDL_Event			event;
 	SDL_Surface			*surf;
 	SDL_Surface			*surtex[TEXNBR];
 	double				ppos[2];
