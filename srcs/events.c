@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/22 14:03:53 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/29 20:09:08 by tle-gac-         ###   ########.fr       */
+/*   Updated: 2018/01/29 20:53:15 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,14 @@ void	move_dir(int sense, t_env *env)
 	float	y;
 	float	mag;
 
-	mag = sqrt(env->dir_vec[0] * env->dir_vec[0] + env->dir_vec[1] * \
-															env->dir_vec[1]);
-	x = 0.04 * env->dir_vec[0] / mag * (env->dir_vec[0] == 0 ? 0 : env->dir_vec\
-		[0] / fabs(env->dir_vec[0])) * (env->dir_vec[0] < 0 ? -1 : 1) * sense;
-	y = 0.04 * env->dir_vec[1] / mag * (env->dir_vec[1] == 0 ? 0 : env->dir_vec\
-		[1] / fabs(env->dir_vec[1])) * (env->dir_vec[1] < 0 ? -1 : 1) * sense;
+	mag = sqrt(env->dir_vec[0] * env->dir_vec[0] +
+											env->dir_vec[1] * env->dir_vec[1]);
+	x = 0.04 * env->flg.sprint * env->dir_vec[0] / mag * (env->dir_vec[0] ==
+			0 ? 0 : env->dir_vec[0] / fabs(env->dir_vec[0])) *
+					(env->dir_vec[0] < 0 ? -1 : 1) * sense;
+	y = 0.04 * env->flg.sprint * env->dir_vec[1] / mag * (env->dir_vec[1] ==
+			0 ? 0 : env->dir_vec[1] / fabs(env->dir_vec[1])) *
+					(env->dir_vec[1] < 0 ? -1 : 1) * sense;
 	if (env->map.map[(int)(env->ppos[0] + x)][(int)(env->ppos[1] + y)] != '#')
 	{
 		env->ppos[0] += x;
@@ -37,12 +39,14 @@ void	strafe(int sense, t_env *env)
 	float	y;
 	float	mag;
 
-	mag = sqrt(env->cam_vec[0] * env->cam_vec[0] + env->cam_vec[1] * \
-															env->cam_vec[1]);
-	x = 0.04 * env->cam_vec[0] / mag * (env->cam_vec[0] == 0 ? 0 : env->cam_vec\
-		[0] / fabs(env->cam_vec[0])) * (env->cam_vec[0] < 0 ? -1 : 1) * sense;
-	y = 0.04 * env->cam_vec[1] / mag * (env->cam_vec[1] == 0 ? 0 : env->cam_vec\
-		[1] / fabs(env->cam_vec[1])) * (env->cam_vec[1] < 0 ? -1 : 1) * sense;
+	mag = sqrt(env->cam_vec[0] * env->cam_vec[0] +
+											env->cam_vec[1] * env->cam_vec[1]);
+	x = 0.04 * env->flg.sprint * env->cam_vec[0] / mag * (env->cam_vec[0] ==
+			0 ? 0 : env->cam_vec[0] / fabs(env->cam_vec[0])) *
+					(env->cam_vec[0] < 0 ? -1 : 1) * sense;
+	y = 0.04 * env->flg.sprint * env->cam_vec[1] / mag * (env->cam_vec[1] ==
+			0 ? 0 : env->cam_vec[1] / fabs(env->cam_vec[1])) *
+					(env->cam_vec[1] < 0 ? -1 : 1) * sense;
 	if (env->map.map[(int)(env->ppos[0] + x)][(int)(env->ppos[1] + y)] != '#')
 	{
 		env->ppos[0] += x;
@@ -90,4 +94,10 @@ void	flags(t_env *env, SDL_Event event)
 		env->flg.minimap = !env->flg.minimap;
 	if (event.key.keysym.scancode == SDL_SCANCODE_D)
 		env->flg.darkness = !env->flg.darkness;
+	if (env->flg.sprint == 1 && event.key.keysym.scancode ==
+															SDL_SCANCODE_S)
+		env->flg.sprint = 2;
+	else if (env->flg.sprint == 2 && event.key.keysym.scancode
+															== SDL_SCANCODE_W)
+		env->flg.sprint = 1;
 }

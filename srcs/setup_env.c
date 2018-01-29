@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/16 16:25:06 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/29 20:09:22 by tle-gac-         ###   ########.fr       */
+/*   Updated: 2018/01/29 20:31:30 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ t_env				*setup_env(t_map lul)
 	setup_raycast(env);
 	env->minimap.init = 0;
 	env->flg.minimap = 0;
+	env->flg.sprint = 1;
 	env->lasttick = 0;
 	return (env);
 }
