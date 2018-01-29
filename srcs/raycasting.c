@@ -6,7 +6,7 @@
 /*   By: tle-gac- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/22 18:29:02 by tle-gac-          #+#    #+#             */
-/*   Updated: 2018/01/28 20:29:27 by tle-gac-         ###   ########.fr       */
+/*   Updated: 2018/01/29 16:10:51 by tle-gac-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,37 @@ int		draw_pix_column(t_raycast *cast, t_env *env, int col)
 	t_wall		w;
 	int			i;
 	uint32_t	tmp;
+	//int			j;
 
 	w = calc_height(cast, env);
 	i = -1;
+	/*while ((++i) + 16 < w.top)
+	{
+		j = -1;
+		while (++j < 16)
+			putpixel(col, i + j, -2);
+		i += 15;
+	}*/
+	while (++i < w.top)
+		putpixel(col, i, -2);
+	while (++i <= w.foot && i < W_HGHT)
+	{
+		tmp = *(uint32_t*)((env->surtex[1 + cast->wall + (cast->wall == 0 \
+				? cast->step[0] : cast->step[1])]->pixels) + \
+				((3 * (int)(63 * cast->relative_pos)) + 64 * (3 * \
+				(63 * (i - w.top) / w.perceived))));
+		env->data[i * W_WDTH + col] = tmp;
+	}
+	/*while ((++i) + 16 < W_HGHT)
+	{
+		j = -1;
+		while (++j < 16)
+			putpixel(col, i + j, -1);
+		i += 15;
+	}*/
 	while (++i < W_HGHT)
+		putpixel(col, i, -1);
+/*	while (++i < W_HGHT)
 	{
 		if (i < w.top)
 			putpixel(col, i, -2);
@@ -74,7 +101,7 @@ int		draw_pix_column(t_raycast *cast, t_env *env, int col)
 		}
 		else
 			putpixel(col, i, -1);
-	}
+	}*/
 	return (1);
 }
 
