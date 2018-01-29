@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 23:57:24 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/28 23:47:47 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/29 16:39:34 by tle-gac-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ static void	event_loop(t_env *env)
 	running = 1;
 	SDL_PollEvent(&event);
 	env->event = event;
+	SDL_SetSurfaceRLE(env->surf, 1);
 	draw_window(env);
 	SDL_UpdateWindowSurface(env->win_p);
 	while (running)

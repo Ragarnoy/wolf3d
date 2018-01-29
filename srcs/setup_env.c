@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/16 16:25:06 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/28 21:02:48 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/29 17:23:00 by tle-gac-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void			setup_sdl(t_env *env)
 	env->win_p = SDL_CreateWindow("WOLF3D",
 		SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
 		W_WDTH, W_HGHT,
-		SDL_WINDOW_FULLSCREEN_DESKTOP);
+		SDL_WINDOW_FULLSCREEN_DESKTOP | SDL_WINDOW_OPENGL);
 	env->surf = SDL_GetWindowSurface(env->win_p);
 	env->data = (int*)env->surf->pixels;
 	ft_bzero(env->data, (W_WDTH * W_HGHT) * 4);
@@ -31,7 +31,7 @@ static void			setup_sdl(t_env *env)
 	env->surtex[0] = SDL_LoadBMP("./tex/colorstone.bmp");
 	env->surtex[1] = SDL_LoadBMP("./tex/greystone.bmp");
 	env->surtex[3] = SDL_LoadBMP("./tex/mossy.bmp");
-	env->surtex[2] = SDL_LoadBMP("./tex/wood.bmp");
+	env->surtex[2] = SDL_LoadBMP("./tex/stone.bmp");
 }
 
 static void			setup_raycast(t_env *env)
