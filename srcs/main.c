@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 23:57:24 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/29 21:41:40 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/29 21:50:23 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int			exit_prog(int error)
 	else if (error == 4)
 		ft_putendl("wolf3d : invalid map (liar).");
 	else if (error == 5)
-		ft_putendl("wolf3d : missing textures.");
+		ft_putendl("wolf3d : missing textures or/and font.");
 	else if ((error = 42) && (SDL_WasInit(SDL_INIT_VIDEO)))
 	{
 		liberate(get_env());

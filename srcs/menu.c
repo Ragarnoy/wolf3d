@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/27 17:22:24 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/29 19:51:34 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/29 21:50:49 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,10 @@ int			menu(t_env *env)
 	int			ret;
 
 	clr = (SDL_Color){0, 0, 0, 0};
-	fonts.fnt[0] = TTF_OpenFont("./tex/justicegrad.ttf", 510);
-	fonts.fnt[1] = TTF_OpenFont("./tex/D3Digitalism.ttf", 200);
+	if (!(fonts.fnt[0] = TTF_OpenFont("./tex/justicegrad.ttf", 510)))
+		exit_prog(5);
+	if (!(fonts.fnt[1] = TTF_OpenFont("./tex/D3Digitalism.ttf", 200)))
+		exit_prog(5);
 	fonts.surfnt[0] = TTF_RenderText_Blended(fonts.fnt[0], "WOLF3D", clr);
 	fonts.surfnt[1] = TTF_RenderText_Blended(fonts.fnt[1], "PRESS START", clr);
 	fonts.txtr = (SDL_Rect){W_WDTH / 8, (W_HGHT / 8) * 6, 0, 0};
