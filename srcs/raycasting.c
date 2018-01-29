@@ -6,7 +6,7 @@
 /*   By: tle-gac- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/22 18:29:02 by tle-gac-          #+#    #+#             */
-/*   Updated: 2018/01/29 17:44:40 by tle-gac-         ###   ########.fr       */
+/*   Updated: 2018/01/29 20:01:13 by tle-gac-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,17 +60,21 @@ int		draw_pix_column(t_raycast *cast, t_env *env, int col)
 	w = calc_height(cast, env);
 	i = 0;
 	while (i < w.top)
-		env->data[i++ * W_WDTH + col] = 0x00FFFFFF;
-	while (i <= w.foot && i < W_HGHT)
+		env->data[i++ * W_WDTH + col] = 0;
+	while (i < w.foot && i < W_HGHT)
 	{
-		env->data[i * W_WDTH + col] = *(uint32_t*)((env->surtex[1 + cast->wall
-				+ (cast->wall == 0 ? cast->step[0] : cast->step[1])]->pixels) \
-				+ ((3 * (int)(63 * cast->relative_pos)) + 64 * (3 * \
-				(63 * (i - w.top) / w.perceived))));
+		if (cast->dist > 3.0 && env->flg.darkness)
+			env->data[i * W_WDTH + col] = 0;
+		else
+			env->data[i * W_WDTH + col] = *(uint32_t*)((env->surtex[1 + \
+				cast->wall + (cast->wall == 0 ? cast->step[0] : \
+				cast->step[1])]->pixels) + ((3 * (int)(63 * \
+				cast->relative_pos)) + 64 * (3 * (63 * (i - w.top) /\
+				w.perceived))));
 		i++;
 	}
-	while (++i < W_HGHT)
-		env->data[i * W_WDTH + col] = 0;
+	while (i < W_HGHT)
+		env->data[i++ * W_WDTH + col] = 0;
 	return (1);
 }
 
